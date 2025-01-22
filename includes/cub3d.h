@@ -31,7 +31,8 @@ typedef struct s_player
 typedef struct s_game
 {
 	void *mlx;
-	void *img;
+
+    mlx_image_t *img;        // Change img to be a pointer to mlx_image_t
 	int bpp;
 	int size_line;
 	int endian;
@@ -44,4 +45,5 @@ void init_player(t_player *player);
 void key_release(void *param);
 void move_player(t_player *player);
 void key_hook(struct mlx_key_data keydata, void *param);
+void move_player(t_player *player);
 #endif 

@@ -35,21 +35,21 @@ void key_hook(struct mlx_key_data keydata, void *param)
     }
 }
 
-/*
-void key_press(void *param)
+void move_player(t_player *player)
 {
-	t_game *game= (t_game*)param;
-	t_player player = game->player;
-    if(mlx_is_key_down(game->mlx, MLX_KEY_W))
-        player.key_up = true;
-    if(mlx_is_key_down(game->mlx, MLX_KEY_S))
-        player.key_down = true;
-    if(mlx_is_key_down(game->mlx, MLX_KEY_A))
-        player.key_left = true;
-    if(mlx_is_key_down(game->mlx, MLX_KEY_D))
-        player.key_right = true;
+	int speed;
+
+	speed = 5;
+	if(player->key_up)
+		player->y -= speed;
+	if(player->key_down)
+		player->y += speed;
+	if(player->key_left)
+		player->x -= speed;
+	if(player->key_right)
+		player->x += speed;
 }
-*/
+
 void init_player(t_player *player)
 {
     player->x = (float)WIDTH / 2;
