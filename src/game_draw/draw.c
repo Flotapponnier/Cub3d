@@ -9,15 +9,27 @@ void draw_map(t_game *game)
             if(map[y][x] == '1')
                 draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
 }
+void draw_line(t_player *player, t_game *game, float start_x)
+{
+	float cos_angle = cos(start_x);
+	float sin_angle = sin(start_x);
+	float ray_x = player->x;
+	float ray_y = player->y;
+	while(!touch(ray_x, ray_y, game))
+	{
+		mlx_put_pixel(game->img, ray_x, ray_y, 0x00FF00FF);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+}
 
 void draw_loop(void *param)
 {
     t_game *game = (t_game *)param;
     t_player *player = &game->player;
-	float ray_x;
-	float ray_y;
-	float cos_angle;
-	float sin_angle;
+	float fraction;
+	float start_x;
+	int i;
 
 	player = &game->player;
 	move_player(player);
@@ -25,16 +37,17 @@ void draw_loop(void *param)
 	draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
 	draw_map(game);
 
-	ray_x = player->x;
-	ray_y = player->y;
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
-	while(!touch(ray_x, ray_y, game))
+	
+	fraction = PI / 3 / WIDTH;
+	start_x = player->angle - PI / 6;
+	i = 0;	
+	while (i < WIDTH)
 	{
-		mlx_put_pixel(game->img, ray_x, ray_y, 0x00FF00FF);
-		ray_x += cos_angle;
-		ray_y += sin_angle;
+		draw_line(player, game, start_x);
+		start_x += fraction;
+		i++;
 	}
+	
 	
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
