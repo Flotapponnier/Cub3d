@@ -43,11 +43,22 @@ typedef struct s_game
 	char **map;
 }t_game;
 
-void draw_square(int x, int y, int size, int color, t_game *game);
+//game init
 void init_game(t_game *game);
 void init_player(t_player *player);
+
+//keyhook
 void key_release(void *param);
-void move_player(t_player *player);
 void key_hook(struct mlx_key_data keydata, void *param);
+
+//player
 void move_player(t_player *player);
+void move_player(t_player *player);
+
+//draw
+void draw_loop(void *param);
+void draw_map(t_game *game);
+void draw_square(int x, int y, int size, int color, t_game *game);
+//undraw
+void clear_image(t_game *game);
 #endif 
