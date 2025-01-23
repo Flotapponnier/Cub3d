@@ -16,6 +16,9 @@
 #define S 115
 #define D 100
 #define PI 3.14159265359
+#define BLOCK 64
+
+#define SIZE_PLAYER 10
 
 
 typedef struct s_player
@@ -32,11 +35,12 @@ typedef struct s_game
 {
 	void *mlx;
 
-    mlx_image_t *img;        // Change img to be a pointer to mlx_image_t
+    mlx_image_t *img;
 	int bpp;
 	int size_line;
 	int endian;
 	t_player player;
+	char **map;
 }t_game;
 
 void draw_square(int x, int y, int size, int color, t_game *game);

@@ -60,9 +60,27 @@ void init_player(t_player *player)
     player->key_left = false;
 }
 
+char **get_map(void)
+{
+    char **map = malloc(sizeof(char *) * 11);
+    map[0] = "111111111111111";
+    map[1] = "100000000000001";
+    map[2] = "100000000000001";
+    map[3] = "100000100000001";
+    map[4] = "100000000000001";
+    map[5] = "100000010000001";
+    map[6] = "100001000000001";
+    map[7] = "100000000000001";
+    map[8] = "100000000000001";
+    map[9] = "111111111111111";
+    map[10] = NULL;
+    return (map);
+}
+
 void init_game(t_game *game)
 {
 	init_player(&game->player);
+	game->map = get_map();
 	game->mlx = mlx_init(WIDTH, HEIGHT, "mlx", true);
 	if(!game->mlx)
 		exit(1);
