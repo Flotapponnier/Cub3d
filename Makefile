@@ -9,6 +9,7 @@ SRC = src/main.c \
 	  src/game_draw/undraw.c \
 	  src/hook/key_hook.c \
 	  src/game_player/game_player.c \
+	  src/raycaster/raycasting.c \
 
 OBJ = $(SRC:.c=.o)
 LIBFT = ./libft/libft.a

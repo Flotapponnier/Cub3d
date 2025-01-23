@@ -66,4 +66,7 @@ void draw_map(t_game *game);
 void draw_square(int x, int y, int size, int color, t_game *game);
 //undraw
 void clear_image(t_game *game);
+
+//raycasting
+bool touch(float px, float py, t_game *game);
 #endif 
