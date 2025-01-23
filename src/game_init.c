@@ -2,12 +2,15 @@
 
 void init_player(t_player *player)
 {
+	player->angle = PI / 2;
     player->x = (float)WIDTH / 2;
     player->y = (float)HEIGHT / 2;
     player->key_up = false;
     player->key_down = false;
     player->key_right = false;
     player->key_left = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
 }
 
 char **get_map(void)

@@ -17,18 +17,23 @@
 #define D 100
 #define PI 3.14159265359
 #define BLOCK 64
+#define LEFT 65361
+#define RIGHT 65363
 
 #define SIZE_PLAYER 10
 
 
 typedef struct s_player
 {
+	float angle;
 	float x;
 	float y;
 	bool key_up;
 	bool key_right;
 	bool key_left;
 	bool key_down;
+	bool left_rotate;
+	bool right_rotate;
 }t_player;
 
 typedef struct s_game
