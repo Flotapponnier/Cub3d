@@ -15,6 +15,20 @@ float distance(float x, float y)
 	return sqrt(x * x + y * y);
 }
 
+float fixed_distance(float x1, float y1, float x2, float y2, t_game *game)
+{
+	float delta_x;
+	float delta_y;
+	float angle;
+	float fixed_distance;
+
+	delta_x = x2 - x1;
+	delta_y = y2 - y1;
+	angle = atan2(delta_y, delta_x) - game->player.angle;
+	fixed_distance = distance(delta_x, delta_y) * cos(angle);
+	return (fixed_distance);
+}
+
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	float cos_angle = cos(start_x);
@@ -28,22 +42,28 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 	
 	while(!touch(ray_x, ray_y, game))
 	{
-		//mlx_put_pixel(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
+		if(DEBUG)
+		{
+			mlx_put_pixel(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
+		}
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
-	dist = distance(ray_x - player->x, ray_y - player->y);
-	if (dist <= 0)
-	    dist = 0.0001f;
-	height = (BLOCK / dist) * ((float)WIDTH / 2);
-	start_y = (HEIGHT - height) / 2;
-	end = start_y + height;
-	if(end >= HEIGHT)
-		end = HEIGHT - 1;
-	while(start_y < end)
+	if(!DEBUG)
 	{
-		mlx_put_pixel(game->img, (int)i, (int)start_y, 0x00FF00FF);
-		start_y++;
+		dist = fixed_distance(player->x, player->y, ray_x, ray_y, game);
+		if (dist <= 0)
+		    dist = 0.0001f;
+		height = (BLOCK / dist) * ((float)WIDTH / 2);
+		start_y = (HEIGHT - height) / 2;
+		end = start_y + height;
+		if(end >= HEIGHT)
+			end = HEIGHT - 1;
+		while(start_y < end)
+		{
+			mlx_put_pixel(game->img, (int)i, (int)start_y, 0x00FF00FF);
+			start_y++;
+		}
 	}
 }
 
@@ -58,10 +78,11 @@ void draw_loop(void *param)
 	player = &game->player;
 	move_player(player);
 	clear_image(game);
-	//draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
-	//draw_map(game);
-
-	
+	if(DEBUG)
+	{
+		draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
+		draw_map(game);
+	}
 	fraction = PI / 3 / WIDTH;
 	start_x = player->angle - PI / 6;
 	i = 0;	

@@ -19,6 +19,7 @@
 #define BLOCK 64
 #define LEFT 65361
 #define RIGHT 65363
+#define DEBUG 0
 
 #define SIZE_PLAYER 10
 

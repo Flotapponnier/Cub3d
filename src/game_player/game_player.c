@@ -13,7 +13,7 @@ void	move_player(t_player *player)
 	sin_angle = sin(player->angle);
 	speed = 3;
 
-	// Rotation handling remains the same
+	// Rotation handling 
 	if (player->left_rotate)
 		player->angle -= angle_speed;
 	if (player->right_rotate)
@@ -23,7 +23,7 @@ void	move_player(t_player *player)
 	if (player->angle < 0)
 		player->angle = 2 * PI;
 
-	// Forward/backward movement (W/S keys) - correct
+	// Forward/backward movement (W/S keys)
 	if (player->key_up)
 	{
 		player->x += cos_angle * speed;
@@ -35,7 +35,7 @@ void	move_player(t_player *player)
 		player->y -= sin_angle * speed;
 	}
 
-	// Left/right strafing (A/D keys) - corrected
+	// Left/right strafing (A/D keys) 
 	if (player->key_left)
 	{
 		// Strafe left: move perpendicular to facing direction (-sinθ, cosθ)
