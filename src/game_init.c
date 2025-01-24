@@ -39,10 +39,6 @@ void init_game(t_game *game)
 		exit(1);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if(!game->img)
-	{
-		mlx_terminate(game->mlx);
-		mlx_close_window(game->mlx);
-		destroy_cub3d(1);
-	}
+		destroy_cub3d(game->mlx, 1);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

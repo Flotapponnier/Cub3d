@@ -6,7 +6,7 @@
 /*   By: eebert <eebert@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:25:26 by eebert            #+#    #+#             */
-/*   Updated: 2025/01/24 17:48:48 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:11:41 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	gc_add_fd(int fd)
 
 	fd_ptr = malloc(sizeof(int));
 	if (!fd_ptr)
-		destroy_cub3d(EXIT_FAILURE);
+		destroy_cub3d(NULL, EXIT_FAILURE);
 	*fd_ptr = fd;
 	new_node = ft_lstnew(fd_ptr);
 	if (!new_node)
-		destroy_cub3d(EXIT_FAILURE);
+		destroy_cub3d(NULL,EXIT_FAILURE);
 	ft_lstadd_back(get_gc_head_files(), new_node);
 	return (fd);
 }

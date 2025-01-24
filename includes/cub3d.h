@@ -51,7 +51,8 @@ typedef struct s_game
 }t_game;
 
 //destroy
-void	destroy_cub3d(int status);
+void	destroy_cub3d(mlx_t *mlx, int status);
+
 //game init
 void init_game(t_game *game);
 void init_player(t_player *player);
@@ -82,4 +83,6 @@ void clear_image(t_game *game);
 
 //raycasting
 float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
+
 #endif 
+

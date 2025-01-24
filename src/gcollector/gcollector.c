@@ -6,7 +6,7 @@
 /*   By: eebert <eebert@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:32:53 by eebert            #+#    #+#             */
-/*   Updated: 2025/01/24 17:48:09 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:15:40 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	*gc_add(void *ptr)
 	t_list	*new_node;
 
 	if (!ptr)
-		destroy_cub3d(EXIT_FAILURE);
+		destroy_cub3d(NULL, EXIT_FAILURE);
 	new_node = ft_lstnew(ptr);
 	if (!new_node)
-		destroy_cub3d(EXIT_FAILURE);
+		destroy_cub3d(NULL, EXIT_FAILURE);
 	ft_lstadd_back(get_gc_head(), new_node);
 	return (ptr);
 }
