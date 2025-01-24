@@ -3,10 +3,7 @@
 static void handle_key_press(struct mlx_key_data keydata, t_player *player)
 {
     if (keydata.key == MLX_KEY_W)
-    {
-        printf(" W pressed\n");
         player->key_up = true;
-    }
     if (keydata.key == MLX_KEY_S)
 		player->key_down = true;
 	if (keydata.key == MLX_KEY_A)
@@ -22,10 +19,7 @@ static void handle_key_press(struct mlx_key_data keydata, t_player *player)
 static void handle_key_release(struct mlx_key_data keydata, t_player *player)
 {
 	if (keydata.key == MLX_KEY_W)
-	{
-		printf("W Released \n");
 		player->key_up = false;
-	}
 	if (keydata.key == MLX_KEY_S)
 		player->key_down = false;
 	if (keydata.key == MLX_KEY_A)
