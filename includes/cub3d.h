@@ -72,4 +72,5 @@ void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_pl
 void clear_image(t_game *game);
 
 //raycasting
+float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
 #endif 
