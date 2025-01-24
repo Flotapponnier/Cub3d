@@ -15,7 +15,7 @@ void init_player(t_player *player)
 
 char **get_map(void)
 {
-    char **map = malloc(sizeof(char *) * 11);
+    char **map = gc_malloc(sizeof(char *) * 11);
     map[0] = "111111111111111";
     map[1] = "100000000000001";
     map[2] = "100000000000001";
@@ -40,8 +40,9 @@ void init_game(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if(!game->img)
 	{
+		mlx_terminate(game->mlx);
 		mlx_close_window(game->mlx);
-		exit(1);
+		destroy_cub3d(1);
 	}
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

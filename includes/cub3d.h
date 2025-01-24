@@ -3,6 +3,7 @@
 
 #include "MLX42.h"
 #include "libft.h"
+#include "gcollector.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -49,6 +50,8 @@ typedef struct s_game
 	char **map;
 }t_game;
 
+//destroy
+void	destroy_cub3d(int status);
 //game init
 void init_game(t_game *game);
 void init_player(t_player *player);
