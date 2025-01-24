@@ -36,7 +36,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 	if (dist <= 0)
 	    dist = 0.0001f;
 	height = (BLOCK / dist) * ((float)WIDTH / 2);
-	start_y = (HEIGHT - height /2);
+	start_y = (HEIGHT - height) / 2;
 	end = start_y + height;
 	if(end >= HEIGHT)
 		end = HEIGHT - 1;
