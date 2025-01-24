@@ -8,10 +8,10 @@ void	move_player(t_player *player)
 	float	cos_angle;
 	float	sin_angle;
 
-	angle_speed = 0.1;
+	angle_speed = 0.03;
 	cos_angle = cos(player->angle);
 	sin_angle = sin(player->angle);
-	speed = 5;
+	speed = 3;
 
 	// Rotation handling remains the same
 	if (player->left_rotate)

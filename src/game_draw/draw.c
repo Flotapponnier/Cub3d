@@ -28,7 +28,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 	
 	while(!touch(ray_x, ray_y, game))
 	{
-		mlx_put_pixel(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
+		//mlx_put_pixel(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
@@ -58,8 +58,8 @@ void draw_loop(void *param)
 	player = &game->player;
 	move_player(player);
 	clear_image(game);
-	draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
-	draw_map(game);
+	//draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
+	//draw_map(game);
 
 	
 	fraction = PI / 3 / WIDTH;
