@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -Imlx42/include -I./includes -g
 MLX_LIB = /Users/ftapponn/Documents/42/Cub3d/mlx42/build/libmlx42.a
 SRC = src/main.c \
 	  src/game_init.c \
+	  src/game_draw/draw.c \
 	  src/game_draw/draw_2d.c \
 	  src/game_draw/draw_3d.c \
 	  src/game_draw/undraw.c \

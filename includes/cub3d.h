@@ -59,6 +59,15 @@ void move_player(t_player *player);
 void draw_loop(void *param);
 void draw_map(t_game *game);
 void draw_square(int x, int y, int size, int color, t_game *game);
+void draw_map(t_game *game);
+
+//draw 2d
+void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_t color);
+
+//draw 3d
+void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
+
+
 //undraw
 void clear_image(t_game *game);
 
