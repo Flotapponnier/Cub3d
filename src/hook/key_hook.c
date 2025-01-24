@@ -17,6 +17,8 @@ static void handle_key_press(struct mlx_key_data keydata, t_game *game)
         game->player.right_rotate = true;
     if (keydata.key == MLX_KEY_ESCAPE) 
         destroy_cub3d(game->mlx, 0);
+    if (keydata.key == MLX_KEY_B) 
+        print_debug_info(game);
 }
 
 

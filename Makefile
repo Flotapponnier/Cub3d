@@ -10,6 +10,7 @@ LDFLAGS = -L$(GLFW_PATH) -lglfw -framework Cocoa -framework OpenGL -framework IO
 
 # Source files
 SRC = src/main.c \
+	  src/debug.c \
 	  src/gcollector/gc_files.c \
 	  src/gcollector/gc_list.c \
 	  src/gcollector/gcollector.c \

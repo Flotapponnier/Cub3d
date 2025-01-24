@@ -84,5 +84,7 @@ void clear_image(t_game *game);
 //raycasting
 float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
 
+//debug
+void print_debug_info(t_game *game);
 #endif 
 
