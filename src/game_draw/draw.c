@@ -1,5 +1,16 @@
 #include "../../includes/cub3d.h"
 
+static bool touch(float px, float py, t_game *game)
+{
+	int x;
+	int y;
+
+	x = px / BLOCK;
+	y = py / BLOCK;
+	if(game->map[y][x] == '1')
+		return (true);
+	return (false);
+}
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	float cos_angle = cos(start_x);

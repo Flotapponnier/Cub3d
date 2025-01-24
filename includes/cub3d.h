@@ -72,5 +72,4 @@ void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_pl
 void clear_image(t_game *game);
 
 //raycasting
-bool touch(float px, float py, t_game *game);
 #endif 
