@@ -3,11 +3,10 @@
 void draw_map(t_game *game)
 {
     char **map = game->map;
-    int color = 0x0000FF00FF;
     for(int y = 0; map[y]; y++)
         for(int x = 0; map[y][x]; x++)
             if(map[y][x] == '1')
-                draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
+                draw_square(x * BLOCK, y * BLOCK, BLOCK, SQUARE2D_COLOR, game);
 }
 
 void draw_square(int x, int y, int size, int color, t_game *game)

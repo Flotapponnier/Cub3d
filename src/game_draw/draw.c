@@ -21,7 +21,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 	while(!touch(ray_x, ray_y, game))
 	{
 		if(DEBUG)
-			draw_raycast_line(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
+			draw_raycast_line(game->img, (int)ray_x, (int)ray_y, RAYCAST_COLOR);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
@@ -42,7 +42,7 @@ void draw_loop(void *param)
 	clear_image(game);
 	if(DEBUG)
 	{
-		draw_square(player->x, player->y, SIZE_PLAYER, 0x00FF00FF, game);
+		draw_square(player->x, player->y, SIZE_PLAYER, PLAYER_COLOR, game);
 		draw_map(game);
 	}
 	fraction = PI / 3 / WIDTH;

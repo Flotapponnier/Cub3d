@@ -12,7 +12,7 @@ void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_pl
         end = HEIGHT - 1;
     while (start_y < end)
     {
-        mlx_put_pixel(game->img, (int)i, (int)start_y, 0x00FF00FF);
+        mlx_put_pixel(game->img, (int)i, (int)start_y, SQUARE3D_COLOR);
         start_y++;
     }
 }

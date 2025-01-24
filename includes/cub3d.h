@@ -15,8 +15,14 @@
 #define BLOCK 64
 #define DEBUG 0
 
+#define ANGLE_SPEED 0.03
+#define SPEED_PLAYER 3
 #define SIZE_PLAYER 10
 
+#define RAYCAST_COLOR 0x00FF0000FF
+#define PLAYER_COLOR 0x000000FFFF
+#define SQUARE2D_COLOR 0x00FFFF00FF
+#define SQUARE3D_COLOR 0x00FFFF00FF
 
 typedef struct s_player
 {
