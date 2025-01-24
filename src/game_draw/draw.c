@@ -3,23 +3,47 @@
 void draw_map(t_game *game)
 {
     char **map = game->map;
-    int color = 0x0000FF;
+    int color = 0x0000FF00FF;
     for(int y = 0; map[y]; y++)
         for(int x = 0; map[y][x]; x++)
             if(map[y][x] == '1')
                 draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
 }
-void draw_line(t_player *player, t_game *game, float start_x)
+
+float distance(float x, float y)
+{
+	return sqrt(x * x + y * y);
+}
+
+void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	float cos_angle = cos(start_x);
 	float sin_angle = sin(start_x);
 	float ray_x = player->x;
 	float ray_y = player->y;
+	float dist;
+	float height;
+	int start_y;
+	int end;
+	
 	while(!touch(ray_x, ray_y, game))
 	{
-		mlx_put_pixel(game->img, ray_x, ray_y, 0x00FF00FF);
+		mlx_put_pixel(game->img, (int)ray_x, (int)ray_y, 0x00FF00FF);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
+	}
+	dist = distance(ray_x - player->x, ray_y - player->y);
+	if (dist <= 0)
+	    dist = 0.0001f;
+	height = (BLOCK / dist) * ((float)WIDTH / 2);
+	start_y = (HEIGHT - height /2);
+	end = start_y + height;
+	if(end >= HEIGHT)
+		end = HEIGHT - 1;
+	while(start_y < end)
+	{
+		mlx_put_pixel(game->img, (int)i, (int)start_y, 0x00FF00FF);
+		start_y++;
 	}
 }
 
@@ -43,12 +67,10 @@ void draw_loop(void *param)
 	i = 0;	
 	while (i < WIDTH)
 	{
-		draw_line(player, game, start_x);
+		draw_line(player, game, start_x, i);
 		start_x += fraction;
 		i++;
 	}
-	
-	
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
 
