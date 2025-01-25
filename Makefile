@@ -11,11 +11,13 @@ LDFLAGS = -L$(GLFW_PATH) -lglfw -framework Cocoa -framework OpenGL -framework IO
 # Source files
 SRC = src/main.c \
 	  src/debug.c \
+	  src/error/error.c \
+	  src/initialising/game_init.c \
+	  src/initialising/init_map.c \
 	  src/gcollector/gc_files.c \
 	  src/gcollector/gc_list.c \
 	  src/gcollector/gcollector.c \
 	  src/destroy_cub3d.c \
-	  src/game_init.c \
 	  src/game_draw/draw.c \
 	  src/game_draw/draw_2d.c \
 	  src/game_draw/draw_3d.c \

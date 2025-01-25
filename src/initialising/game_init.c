@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void init_player(t_player *player)
 {
@@ -30,15 +30,17 @@ char **get_map(void)
     return (map);
 }
 
-void init_game(t_game *game)
+int init_game(t_game *game, char *path_user_input)
 {
+	if(init_map(game, path_user_input) == 1)
+		destroy_cub3d(NULL, 1);
 	init_player(&game->player);
-	game->map = get_map();
 	game->mlx = mlx_init(WIDTH, HEIGHT, "mlx", true);
 	if(!game->mlx)
-		exit(1);
+		destroy_cub3d(NULL, 1);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if(!game->img)
 		destroy_cub3d(game->mlx, 1);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
+	return (1);
 }
