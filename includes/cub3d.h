@@ -32,6 +32,8 @@
 
 #define ERROR_ARG "argument should be ./cub3d maps/correct/nameofmap"
 #define ERROR_EXTENSION "file should be a .cub file"
+#define ERROR_FD "Can't find file"
+#define ERROR_WRONG_CHAR "Map contains wrong character"
 
 typedef struct s_player
 {

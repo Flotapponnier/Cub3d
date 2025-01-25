@@ -8,9 +8,9 @@ int main(int argc , char **argv)
 	if(argc != 2)
 		return (error(ERROR_ARG), 1);
 	init_game(&game, argv[1]);
-	//mlx_key_hook(game.mlx, key_hook, &game);
-	//mlx_loop_hook(game.mlx, draw_loop, &game);
-	//mlx_loop(game.mlx);
+	mlx_key_hook(game.mlx, key_hook, &game);
+	mlx_loop_hook(game.mlx, draw_loop, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }
 

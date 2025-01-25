@@ -34,6 +34,7 @@ int init_game(t_game *game, char *path_user_input)
 {
 	if(init_map(game, path_user_input) == 1)
 		destroy_cub3d(NULL, 1);
+	game->map = get_map();
 	init_player(&game->player);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "mlx", true);
 	if(!game->mlx)
