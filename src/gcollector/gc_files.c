@@ -6,7 +6,7 @@
 /*   By: eebert <eebert@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:25:26 by eebert            #+#    #+#             */
-/*   Updated: 2025/01/24 18:11:41 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:24:24 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	gc_add_fd(int fd)
 	t_list	*new_node;
 	int		*fd_ptr;
 
+	if (fd < 0)
+		return (-1);
 	fd_ptr = malloc(sizeof(int));
 	if (!fd_ptr)
 		destroy_cub3d(NULL, EXIT_FAILURE);
@@ -72,6 +74,8 @@ void	gc_close_fd(int fd)
 			free(current);
 			return ;
 		}
+		if (fd < 0)
+			return ;
 		previous = current;
 		current = current->next;
 	}

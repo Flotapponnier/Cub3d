@@ -7,6 +7,8 @@ void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_pl
         dist = 0.0001f;
     float height = (BLOCK / dist) * ((float)WIDTH / 2);
     float start_y = (HEIGHT - height) / 2;
+    if (start_y < 0)
+        start_y = 0;
     float end = start_y + height;
     if (end >= HEIGHT)
         end = HEIGHT - 1;
