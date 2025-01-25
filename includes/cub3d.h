@@ -18,7 +18,7 @@
 
 #define PI 3.14159265359
 #define BLOCK 64
-#define DEBUG 0
+#define DEBUG 1
 
 
 #define ANGLE_SPEED 0.03
@@ -84,6 +84,9 @@ void	destroy_cub3d(mlx_t *mlx, int status);
 //game init
 int init_game(t_game *game, char *path_user_input);
 void init_player(t_player *player);
+
+//checkmap
+int	check_map(t_map_node *map_list, t_player *player);
 
 //map init
 int init_map(t_game *game, char *path_user_input);

@@ -26,6 +26,7 @@ void print_map(char **map)
         i++;
     }
 }
+
 int init_game(t_game *game, char *path_user_input)
 {
 	if(init_map(game, path_user_input) == 1)

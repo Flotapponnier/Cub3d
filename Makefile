@@ -14,6 +14,7 @@ SRC = src/main.c \
 	  src/error/error.c \
 	  src/initialising/game_init.c \
 	  src/initialising/init_map.c \
+	  src/initialising/check_map.c \
 	  src/gcollector/gc_files.c \
 	  src/gcollector/gc_list.c \
 	  src/gcollector/gcollector.c \
