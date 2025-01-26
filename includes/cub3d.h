@@ -35,6 +35,13 @@
 #define ERROR_FD "Can't find file"
 #define ERROR_WRONG_CHAR "Map contains wrong character"
 
+
+typedef struct s_queue
+{
+    int x, y;
+    struct s_queue *next;
+} t_queue;
+
 typedef struct s_map_node
 {
     char *line;
@@ -86,7 +93,10 @@ int init_game(t_game *game, char *path_user_input);
 void init_player(t_player *player);
 
 //checkmap
-int	check_map(t_map_node *map_list, t_player *player);
+int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_height);
+
+//flood_fill
+bool flood_fill(char **map, int width, int height, int start_x, int start_y);
 
 //map init
 int init_map(t_game *game, char *path_user_input);
@@ -120,6 +130,7 @@ float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
 
 //debug
 void print_debug_info(t_game *game);
+void print_map(char **map);
 
 //error
 int error(const char *msg);

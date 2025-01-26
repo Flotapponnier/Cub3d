@@ -8,24 +8,11 @@ void init_player(t_player *player)
     player->key_left = false;
 	player->left_rotate = false;
 	player->right_rotate = false;
+	player->x = (player->x * 64) + 32;
+	player->y = (player->y * 64) + 32;
 }
 
-void print_map(char **map)
-{
-    int i = 0;
 
-    if (!map)
-    {
-        printf("Map is NULL\n");
-        return;
-    }
-
-    while (map[i])
-    {
-        printf("%s\n", map[i]);
-        i++;
-    }
-}
 
 int init_game(t_game *game, char *path_user_input)
 {

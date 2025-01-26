@@ -74,3 +74,20 @@ void print_debug_info(t_game *game)
     }
     printf("===== END DEBUG INFO =====\n\n");
 }
+
+void print_map(char **map)
+{
+    int i = 0;
+
+    if (!map)
+    {
+        printf("Map is NULL\n");
+        return;
+    }
+
+    while (map[i])
+    {
+        printf("%s\n", map[i]);
+        i++;
+    }
+}

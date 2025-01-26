@@ -1,5 +1,6 @@
 #include "../../includes/cub3d.h"
 
+
 static bool is_valid_map_char(char c)
 {
     return (c == '1' || c == '0' || c == ' ' || c == '\n');
@@ -10,62 +11,79 @@ static bool is_player_char(char c)
     return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
-static int	process_player(char c, int i, int row, t_player *player, int *player_count)
+static int process_player(char c, int i, int row, t_player *player, int *player_count)
 {
-	(*player_count)++;
-	if (*player_count > 1)
-		return (error("More than one player on the map"));
-	player->x = (i * 64) + 32;
-	player->y = (row * 64) + 32;
-	if (c == 'N')
-		player->angle = 3 * PI / 2;
-	else if (c == 'S')
-		player->angle = PI / 2;
-	else if (c == 'W')
-		player->angle = PI;
-	else if (c == 'E')
-		player->angle = 0;
-	return (0);
+    (*player_count)++;
+    if (*player_count > 1)
+        return (error("More than one player on the map"));
+    player->x = i;
+    player->y = row;
+    if (c == 'N')
+        player->angle = 3 * PI / 2;
+    else if (c == 'S')
+        player->angle = PI / 2;
+    else if (c == 'W')
+        player->angle = PI;
+    else if (c == 'E')
+        player->angle = 0;
+    return (0);
 }
 
-static int	validate_line(char *line, int row, t_player *player, int *player_count)
+static int validate_line(char *line, int row, t_player *player, int *player_count, int *map_width)
 {
-	int	i;
+    int i = 0;
+    int line_length = 0;
 
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (is_valid_map_char(line[i]))
-			i++;
-		else if (is_player_char(line[i]))
-		{
-			if (process_player(line[i], i, row, player, player_count) != 0)
-				return (-1);
-			i++;
-		}
-		else
-			return (error(ERROR_WRONG_CHAR));
-	}
-	return (0);
+    while (line[i] != '\0')
+    {
+        if (is_valid_map_char(line[i]) || is_player_char(line[i]))
+        {
+            line_length = i + 1;
+            if (is_player_char(line[i]) && process_player(line[i], i, row, player, player_count) != 0)
+                return (-1);
+        }
+        else
+            return (error(ERROR_WRONG_CHAR));
+        i++;
+    }
+
+    if (*map_width == 0)
+        *map_width = line_length;
+    else if (line_length != *map_width)
+        return (error("Inconsistent row widths in map"));
+
+    return (0);
 }
 
-int	check_map(t_map_node *map_list, t_player *player)
-{
-	int			player_count;
-	t_map_node	*temp;
-	int			row;
 
-	player_count = 0;
+int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_height)
+{
+    int player_count;
+    t_map_node *temp; 
+    int row;
+    int max_row_width;
+	int current_row_width;
+
 	temp = map_list;
+	current_row_width = 0;
 	row = 0;
-	while (temp)
-	{
-		if (validate_line(temp->line, row, player, &player_count) != 0)
-			return (-1);
-		temp = temp->next;
-		row++;
-	}
-	if (player_count == 0)
-		return (error("No player on the map"));
-	return (0);
+	*map_width = 0;
+	*map_height = 0;
+	player_count = 0;
+    while (temp)
+    {
+        current_row_width = strlen(temp->line);
+        if (current_row_width > max_row_width)
+            max_row_width = current_row_width;
+        if (validate_line(temp->line, row, player, &player_count, &max_row_width) != 0)
+            return (-1);
+        temp = temp->next;
+        row++;
+    }
+    if (player_count == 0)
+        return (error("No player on the map"));
+    *map_width = max_row_width;
+    *map_height = row;
+    printf("Map width: %d, Map height: %d\n", *map_width, *map_height);
+    return (0);
 }

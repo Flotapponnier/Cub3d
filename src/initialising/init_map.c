@@ -79,7 +79,11 @@ int	init_map(t_game *game, char *path_user_input)
 {
 	int			fd;
 	t_map_node	*map_list;
+	int map_width;
+	int map_height;
 
+	map_width = 0;
+	map_height = 0;
 	if (ft_strncmp(".cub", path_user_input + ft_strlen(path_user_input) - 4,
 			4) != 0)
 		return (error(ERROR_EXTENSION));
@@ -89,8 +93,17 @@ int	init_map(t_game *game, char *path_user_input)
 	map_list = load_map(fd);
 	if (!map_list)
 		return (error("Failed to load map"));
-	if (check_map(map_list, &game->player) == 1)
+	if (check_map(map_list, &game->player, &map_width, &map_height) == 1)
 		return (1);
 	game->map = get_map(map_list);
+	printf("Map width : %d \n, Map height %d \n", map_width, map_height);
+	int result = flood_fill(game->map, map_width, map_height, (int)game->player.x, (int)game->player.y);
+	if (result)
+	{
+		print_map(game->map);	
+		return error("Map is not enclosed!\n");
+	}
+	else
+		printf("Map is fully enclosed by walls.\n");
 	return (0);
 }
