@@ -26,11 +26,13 @@
 #define SPEED_PLAYER 3
 #define SIZE_PLAYER 10
 #define SPACE_COLLISION 10
+#define PLAYER_HEIGHT 0.5f
 
 #define RAYCAST_COLOR 0x00FF0000FF
 #define PLAYER_COLOR 0x000000FFFF
 #define SQUARE2D_COLOR 0x00FFFF00FF
 #define SQUARE3D_COLOR 0x00FFFF00FF
+#define FLOOR_COLOR 0X00FF0000FF
 
 #define ERROR_ARG "argument should be ./cub3d maps/correct/nameofmap"
 #define ERROR_EXTENSION "file should be a .cub file"
@@ -123,6 +125,8 @@ void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_
 
 //draw 3d
 void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
+void draw_floor_slice(t_game *game, int i, int start_y);
+void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end);
 
 
 //undraw

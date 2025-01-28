@@ -6,33 +6,27 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:37:58 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:35:03 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y,
-		t_player *player)
+void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end)
 {
-	float	dist;
-	float	start_y;
-	float	height;
-	float	end;
+    while (start_y < end)
+    {
+        mlx_put_pixel(game->img, i, (int)start_y, SQUARE3D_COLOR);
+        start_y++;
+    }
+}
 
-	dist = fixed_distance(player->x, player->y, ray_x, ray_y, game);
-	height = (BLOCK / dist) * ((float)WIDTH / 2);
-	start_y = (HEIGHT - height) / 2;
-	end = start_y + height;
-	if (dist <= 0)
-		dist = 0.0001f;
-	if (start_y < 0)
-		start_y = 0;
-	if (end >= HEIGHT)
-		end = HEIGHT - 1;
-	while (start_y < end)
-	{
-		mlx_put_pixel(game->img, (int)i, (int)start_y, SQUARE3D_COLOR);
-		start_y++;
-	}
+void draw_floor_slice(t_game *game, int i, int start_y)
+{
+    int j = start_y;
+    while (j < HEIGHT)
+    {
+        mlx_put_pixel(game->img, i, j, FLOOR_COLOR);
+        j++;
+    }
 }
