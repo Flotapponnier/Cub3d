@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 16:11:25 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:07:46 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void draw_loop(void *param)
 	int i;
 
 	player = &game->player;
-	move_player(player);
+	move_player(player, game->map);
 	clear_image(game);
 	if(DEBUG)
 	{

@@ -25,6 +25,7 @@
 #define ANGLE_SPEED 0.03
 #define SPEED_PLAYER 3
 #define SIZE_PLAYER 10
+#define SPACE_COLLISION 10
 
 #define RAYCAST_COLOR 0x00FF0000FF
 #define PLAYER_COLOR 0x000000FFFF
@@ -109,8 +110,7 @@ void key_release(void *param);
 void key_hook(struct mlx_key_data keydata, void *param);
 
 //player
-void move_player(t_player *player);
-void move_player(t_player *player);
+void move_player(t_player *player, char **map);
 
 //draw
 void draw_loop(void *param);
