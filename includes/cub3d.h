@@ -33,6 +33,7 @@
 #define SQUARE2D_COLOR 0x00FFFF00FF
 #define SQUARE3D_COLOR 0x00FFFF00FF
 #define FLOOR_COLOR 0X00FF0000FF
+#define CEILING_COLOR 0x0000FFFFFF
 
 #define ERROR_ARG "argument should be ./cub3d maps/correct/nameofmap"
 #define ERROR_EXTENSION "file should be a .cub file"
@@ -127,7 +128,7 @@ void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_
 void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
 void draw_floor_slice(t_game *game, int i, int start_y);
 void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end);
-
+void draw_ceiling_slice(t_game *game, int i, int ceiling_end);
 
 //undraw
 void clear_image(t_game *game);

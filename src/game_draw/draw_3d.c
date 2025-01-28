@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/28 19:35:03 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:43:41 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ void draw_floor_slice(t_game *game, int i, int start_y)
     while (j < HEIGHT)
     {
         mlx_put_pixel(game->img, i, j, FLOOR_COLOR);
+        j++;
+    }
+}
+
+void draw_ceiling_slice(t_game *game, int i, int ceiling_end)
+{
+    int j = 0;
+    while (j < ceiling_end)
+    {
+        mlx_put_pixel(game->img, i, j, CEILING_COLOR);
         j++;
     }
 }
