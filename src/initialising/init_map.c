@@ -6,12 +6,11 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:32:34 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:49:16 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 static t_map_node	*add_map_node(t_map_node **head, char *line)
 {
@@ -87,6 +86,78 @@ char	**get_map(t_map_node *map_list)
 	return (map);
 }
 
+int extract_info(t_map *map_struct, int fd)
+{
+    char *line;
+
+
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        if (*line == '\n' || *line == '\0')
+        {
+            gc_free_ptr(line);
+            continue;
+        }
+        if (!ft_strncmp(line, "NO ", 3) && !map_struct->path_north)
+            map_struct->path_north = ft_strtrim(line + 3, " \n");
+        else if (!ft_strncmp(line, "SO ", 3) && !map_struct->path_south)
+            map_struct->path_south = ft_strtrim(line + 3, " \n");
+        else if (!ft_strncmp(line, "WE ", 3) && !map_struct->path_west)
+            map_struct->path_west = ft_strtrim(line + 3, " \n");
+        else if (!ft_strncmp(line, "EA ", 3) && !map_struct->path_east)
+            map_struct->path_east = ft_strtrim(line + 3, " \n");
+        else if (!ft_strncmp(line, "F ", 2) && !map_struct->color_floor)
+            map_struct->color_floor = ft_strtrim(line + 2, " \n");
+        else if (!ft_strncmp(line, "C ", 2) && !map_struct->color_cell)
+            map_struct->color_cell = ft_strtrim(line + 2, " \n");
+        else
+        {
+            gc_free_ptr(line);
+            return error("Invalid character in map header");
+        }
+        gc_free_ptr(line);
+        if (map_struct->path_north && map_struct->path_south &&
+            map_struct->path_west && map_struct->path_east &&
+            map_struct->color_floor && map_struct->color_cell)
+        {
+            return (0);
+        }
+    }
+
+    return error("Missing map textures or colors");
+}
+
+void print_map_struct(t_map *map_struct)
+{
+    if (!map_struct)
+    {
+        printf("Map struct is NULL\n");
+        return;
+    }
+
+    printf("=== MAP STRUCT CONTENT ===\n");
+    printf("North Texture Path : %s\n", map_struct->path_north ? map_struct->path_north : "Not set");
+    printf("South Texture Path : %s\n", map_struct->path_south ? map_struct->path_south : "Not set");
+    printf("West Texture Path  : %s\n", map_struct->path_west ? map_struct->path_west : "Not set");
+    printf("East Texture Path  : %s\n", map_struct->path_east ? map_struct->path_east : "Not set");
+    printf("Floor Color        : %s\n", map_struct->color_floor ? map_struct->color_floor : "Not set");
+    printf("Ceiling Color      : %s\n", map_struct->color_cell ? map_struct->color_cell : "Not set");
+    printf("Map Width          : %d\n", map_struct->map_width);
+    printf("Map Height         : %d\n", map_struct->map_height);
+
+    if (map_struct->map)
+    {
+        printf("Map Data:\n");
+        for (int i = 0; map_struct->map[i]; i++)
+            printf("%s\n", map_struct->map[i]);
+    }
+    else
+    {
+        printf("Map Data           : Not set\n");
+    }
+    printf("==========================\n");
+}
+
 int	init_map(t_game *game, char *path_user_input)
 {
 	int			fd;
@@ -96,12 +167,16 @@ int	init_map(t_game *game, char *path_user_input)
 
 	map_width = 0;
 	map_height = 0;
+	ft_bzero(&game->map_struct, sizeof(t_map));
 	if (ft_strncmp(".cub", path_user_input + ft_strlen(path_user_input) - 4,
 			4) != 0)
 		return (error(ERROR_EXTENSION));
 	fd = gc_add_fd(open(path_user_input, O_RDONLY));
 	if (fd < 0)
 		return (error(ERROR_FD));
+	if(extract_info(&game->map_struct, fd))
+		return (1);
+	print_map_struct(&game->map_struct);
 	map_list = load_map(fd);
 	if (!map_list)
 		return (error("Failed to load map"));

@@ -18,7 +18,7 @@
 
 #define PI 3.14159265359
 #define BLOCK 64
-#define DEBUG 1
+#define DEBUG 0
 
 
 #define ANGLE_SPEED 0.03
@@ -61,16 +61,17 @@ typedef struct s_player
 	bool right_rotate;
 }t_player;
 
-typedef struct t_map
+typedef struct s_map
 {
 	char **map;
 	int map_height;
 	int map_width;
 	char *path_north;
-	char *parth_south;
+	char *path_south;
 	char *path_west;
 	char *path_east;
-	
+	char *color_floor;
+	char *color_cell;
 } t_map;
 
 typedef struct s_game
@@ -85,6 +86,7 @@ typedef struct s_game
 	int endian;
 	t_player player;
 }t_game;
+
 //destroy
 void	destroy_cub3d(mlx_t *mlx, int status);
 
