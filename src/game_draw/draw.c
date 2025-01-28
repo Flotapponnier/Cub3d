@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:37:53 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:11:25 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void draw_loop(void *param)
 		draw_square(player->x, player->y, SIZE_PLAYER, PLAYER_COLOR, game);
 		draw_map(game);
 	}
-	fraction = PI / 3 / WIDTH;
+	fraction = FOV / WIDTH;
 	start_x = player->angle - PI / 6;
 	i = 0;	
 	while (i < WIDTH)

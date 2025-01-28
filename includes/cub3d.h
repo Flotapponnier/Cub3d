@@ -17,6 +17,7 @@
 #define HEIGHT 720
 
 #define PI 3.14159265359
+#define FOV (PI/3)
 #define BLOCK 64
 #define DEBUG 0
 
