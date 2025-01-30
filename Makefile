@@ -8,6 +8,9 @@ LIBFT = ./libft/libft.a
 GLFW_PATH = /Users/$(USER)/.brew/opt/glfw/lib
 LDFLAGS = -L$(GLFW_PATH) -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
+# Directories
+OBJ_DIR = obj
+
 # Source files
 SRC = src/main.c \
 	  src/debug.c \
@@ -29,7 +32,7 @@ SRC = src/main.c \
 	  src/raycaster/raycasting.c \
 
 # Object files
-OBJ = $(SRC:.c=.o)
+OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Executable name
 NAME = cub3d
@@ -40,8 +43,9 @@ all: $(LIBFT) $(NAME)
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
-# Compile .c files into .o files
-%.o: %.c
+# Create necessary directories and compile .c files into .o files
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build libft
@@ -50,7 +54,7 @@ $(LIBFT):
 
 # Cleaning rules
 clean:
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	make clean -C ./libft
 
 fclean: clean
