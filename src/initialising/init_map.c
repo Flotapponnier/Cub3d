@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 21:25:06 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/30 21:42:01 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ uint32_t convert_rgb_to_uint(char *color_str)
     char **rgb;
     uint32_t color;
     int r, g, b;
+    
+    if (!color_str)
+        return 0;
 
     rgb = ft_split(color_str, ',');
-    if (!rgb)
-        return (0);
+    if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3]) {
+        gc_free_ptr(rgb);
+        return 0;
+    }
     
     r = ft_atoi(rgb[0]);
     g = ft_atoi(rgb[1]); 
@@ -30,6 +35,10 @@ uint32_t convert_rgb_to_uint(char *color_str)
     for (int i = 0; rgb[i]; i++)
         gc_free_ptr(rgb[i]);
     gc_free_ptr(rgb);
+
+    // Validate color ranges
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+        return 0;
 
     // Convert to RGBA format (we want full opacity)
     color = (r << 24) | (g << 16) | (b << 8) | 0xFF;
