@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:28 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:32:29 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:07:52 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int init_game(t_game *game, char *path_user_input)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if(!game->img)
 		destroy_cub3d(game->mlx, 1);
-	mlx_image_to_window(game->mlx, game->img, 0, 0);
+	if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
+		destroy_cub3d(game->mlx, 1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 09:33:18 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:04:12 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,4 @@ void draw_loop(void *param)
 		start_x += fraction;
 		i++;
 	}
-	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
