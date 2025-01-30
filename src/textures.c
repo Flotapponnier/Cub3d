@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:52:28 by dilin             #+#    #+#             */
-/*   Updated: 2025/01/30 20:15:43 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/30 20:29:18 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,14 @@ uint32_t get_texture_color(t_texture *tex, float tex_x, float tex_y)
     if (y < 0) y = 0;
     if (x >= tex->width) x = tex->width - 1;
     if (y >= tex->height) y = tex->height - 1;
-    
-    return tex->pixels[y * tex->width + x];
+
+    uint32_t color = tex->pixels[y * tex->width + x];
+    uint8_t a = (color >> 24) & 0xFF;
+    uint8_t b = (color >> 16) & 0xFF;
+    uint8_t g = (color >> 8) & 0xFF;
+    uint8_t r = color & 0xFF;
+
+    return (r << 24) | (g << 16) | (b << 8) | a;
 }
 
 void free_textures(t_game *game)
