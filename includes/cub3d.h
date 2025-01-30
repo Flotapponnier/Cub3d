@@ -31,8 +31,6 @@
 #define RAYCAST_COLOR 0x00FF0000FF
 #define PLAYER_COLOR 0x000000FFFF
 #define SQUARE2D_COLOR 0x00FFFF00FF
-#define FLOOR_COLOR 0X00FF0000FF
-#define CEILING_COLOR 0x0000FFFFFF
 
 #define SQUARE3D_NORTH 0xFFFF00FF
 #define SQUARE3D_EAST 0xCC9900FF
@@ -103,6 +101,8 @@ typedef struct s_game
 	int endian;
 	t_player player;
 	t_texture textures[4]; // NO, SO, WE, EA
+	uint32_t floor_color;
+	uint32_t ceiling_color;
 }t_game;
 
 //destroy

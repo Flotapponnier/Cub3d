@@ -6,11 +6,35 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 09:17:16 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:25:06 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+uint32_t convert_rgb_to_uint(char *color_str)
+{
+    char **rgb;
+    uint32_t color;
+    int r, g, b;
+
+    rgb = ft_split(color_str, ',');
+    if (!rgb)
+        return (0);
+    
+    r = ft_atoi(rgb[0]);
+    g = ft_atoi(rgb[1]); 
+    b = ft_atoi(rgb[2]);
+
+    // Free the split strings
+    for (int i = 0; rgb[i]; i++)
+        gc_free_ptr(rgb[i]);
+    gc_free_ptr(rgb);
+
+    // Convert to RGBA format (we want full opacity)
+    color = (r << 24) | (g << 16) | (b << 8) | 0xFF;
+    return color;
+}
 
 static t_map_node	*add_map_node(t_map_node **head, char *line)
 {
@@ -190,5 +214,7 @@ int	init_map(t_game *game, char *path_user_input)
 	}
 	else
 		printf("Map is fully enclosed by walls.\n");
+	game->floor_color = convert_rgb_to_uint(game->map_struct.color_floor);
+	game->ceiling_color = convert_rgb_to_uint(game->map_struct.color_cell);
 	return (0);
 }

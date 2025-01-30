@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 19:52:50 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/30 21:21:07 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void draw_floor_slice(t_game *game, int i, int start_y)
     int j = start_y;
     while (j < HEIGHT)
     {
-        mlx_put_pixel(game->img, i, j, FLOOR_COLOR);
+        mlx_put_pixel(game->img, i, j, game->floor_color);
         j++;
     }
 }
@@ -76,7 +76,7 @@ void draw_ceiling_slice(t_game *game, int i, int ceiling_end)
     int j = 0;
     while (j < ceiling_end)
     {
-        mlx_put_pixel(game->img, i, j, CEILING_COLOR);
+        mlx_put_pixel(game->img, i, j, game->ceiling_color);
         j++;
     }
 }
