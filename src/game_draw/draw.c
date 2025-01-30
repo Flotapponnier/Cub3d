@@ -6,13 +6,12 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 18:33:41 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:55:06 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-
+#include <stdint.h>
 
 static int touch(float px, float py, t_game *game, int *side)
 {
@@ -40,6 +39,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     float ray_x = player->x;
     float ray_y = player->y;
     int side = 0;
+	uint32_t color = 0;
 
     while (1)
     {
@@ -54,16 +54,28 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     if (side == 1)
     {
         if (cos_angle > 0)
-            direction = 'E';
+		{
+			direction = 'E';
+            color = SQUARE3D_EAST;
+		}
         else
-            direction = 'W';
-    }
+		{
+			direction = 'W';
+			color = SQUARE3D_WEST;
+		}
+	}
     else if (side == 2)
     {
         if (sin_angle > 0)
-            direction = 'S';
+		{
+			direction = 'S';
+            color = SQUARE3D_SOUTH;
+		}
         else
-            direction = 'N';
+		{
+			direction = 'N';
+            color = SQUARE3D_NORTH;
+		}
     }
     printf("Wall hit: %c\n", direction);
     if (!DEBUG)
@@ -75,9 +87,9 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
         if (dist <= 0) dist = 0.0001f;
         if (start_y < 0) start_y = 0;
         if (end >= HEIGHT) end = HEIGHT - 1;
-        draw_floor_slice(game, i, start_y);
-		draw_ceiling_slice(game, i, start_y);
-        draw_wall_slice(game, i, start_y, end);
+        //draw_floor_slice(game, i, start_y);
+		//draw_ceiling_slice(game, i, start_y);
+        draw_wall_slice(game, i, start_y, end, color);
     }
 }
 

@@ -19,7 +19,7 @@
 #define PI 3.14159265359
 #define FOV (PI/3)
 #define BLOCK 64
-#define DEBUG 1
+#define DEBUG 0
 
 
 #define ANGLE_SPEED 0.03
@@ -31,9 +31,14 @@
 #define RAYCAST_COLOR 0x00FF0000FF
 #define PLAYER_COLOR 0x000000FFFF
 #define SQUARE2D_COLOR 0x00FFFF00FF
-#define SQUARE3D_COLOR 0x00FFFF00FF
 #define FLOOR_COLOR 0X00FF0000FF
 #define CEILING_COLOR 0x0000FFFFFF
+
+#define SQUARE3D_NORTH 0xFFFF00FF
+#define SQUARE3D_EAST 0xCC9900FF
+#define SQUARE3D_WEST 0x009900FF
+#define SQUARE3D_SOUTH 0x00FF00FF
+
 
 #define ERROR_ARG "argument should be ./cub3d maps/correct/nameofmap"
 #define ERROR_EXTENSION "file should be a .cub file"
@@ -127,7 +132,7 @@ void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_
 //draw 3d
 void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
 void draw_floor_slice(t_game *game, int i, int start_y);
-void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end);
+void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end, uint32_t color);
 void draw_ceiling_slice(t_game *game, int i, int ceiling_end);
 
 //undraw
