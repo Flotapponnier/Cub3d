@@ -19,7 +19,7 @@
 #define PI 3.14159265359
 #define FOV (PI/3)
 #define BLOCK 64
-#define DEBUG 0
+#define DEBUG 1
 
 
 #define ANGLE_SPEED 0.03
@@ -100,7 +100,7 @@ int init_game(t_game *game, char *path_user_input);
 void init_player(t_player *player);
 
 //checkmap
-int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_height);
+int check_map(t_map_node *map_list, t_player *player, t_game *game);
 
 //flood_fill
 bool flood_fill(char **map, int width, int height, int start_x, int start_y);

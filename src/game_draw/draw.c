@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/28 19:44:53 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 09:33:18 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static bool touch(float px, float py, t_game *game)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
+	if (x < 0 || y < 0 || y > game->map_struct.map_height || x > game->map_struct.map_width)
+		return (true);
 	if(game->map[y][x] == '1')
 		return (true);
 	return (false);
@@ -34,12 +36,13 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 
     while (!touch(ray_x, ray_y, game))
     {
+		if (ray_x < 0 || ray_y < 0 || ray_x >= game->map_struct.map_width * BLOCK || ray_y >= game->map_struct.map_height * BLOCK)
+            break;
         if (DEBUG)
             draw_raycast_line(game->img, (int)ray_x, (int)ray_y, RAYCAST_COLOR);
         ray_x += cos_angle;
         ray_y += sin_angle;
     }
-
     if (!DEBUG)
     {
         float dist = fixed_distance(player->x, player->y, ray_x, ray_y, game);
@@ -56,6 +59,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
         draw_wall_slice(game, i, start_y, end);
     }
 }
+
 
 void draw_loop(void *param)
 {

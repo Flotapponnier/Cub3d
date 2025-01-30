@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:15 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:32:18 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 09:14:31 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int validate_line(char *line, int row, t_player *player, int *player_coun
 }
 
 
-int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_height)
+int check_map(t_map_node *map_list, t_player *player, t_game *game)
 {
     int player_count;
     t_map_node *temp; 
@@ -79,8 +79,6 @@ int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_h
 	temp = map_list;
 	current_row_width = 0;
 	row = 0;
-	*map_width = 0;
-	*map_height = 0;
 	player_count = 0;
     while (temp)
     {
@@ -94,8 +92,8 @@ int check_map(t_map_node *map_list, t_player *player, int *map_width, int *map_h
     }
     if (player_count == 0)
         return (error("No player on the map"));
-    *map_width = max_row_width;
-    *map_height = row;
-    printf("Map width: %d, Map height: %d\n", *map_width, *map_height);
+    game->map_struct.map_width = max_row_width;
+    game->map_struct.map_height = row;
+    printf("Map width: %d, Map height: %d\n", game->map_struct.map_width, game->map_struct.map_height);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/28 17:49:16 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 09:17:16 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,9 @@ int	init_map(t_game *game, char *path_user_input)
 {
 	int			fd;
 	t_map_node	*map_list;
-	int map_width;
-	int map_height;
 
-	map_width = 0;
-	map_height = 0;
+	game->map_struct.map_width = 0;
+	game->map_struct.map_height = 0;
 	ft_bzero(&game->map_struct, sizeof(t_map));
 	if (ft_strncmp(".cub", path_user_input + ft_strlen(path_user_input) - 4,
 			4) != 0)
@@ -180,11 +178,11 @@ int	init_map(t_game *game, char *path_user_input)
 	map_list = load_map(fd);
 	if (!map_list)
 		return (error("Failed to load map"));
-	if (check_map(map_list, &game->player, &map_width, &map_height) == 1)
+	if (check_map(map_list, &game->player, game) == 1)
 		return (1);
 	game->map = get_map(map_list);
-	printf("Map width : %d \n, Map height %d \n", map_width, map_height);
-	int result = flood_fill(game->map, map_width, map_height, (int)game->player.x, (int)game->player.y);
+	printf("Map width : %d \n, Map height %d \n", game->map_struct.map_width, game->map_struct.map_height);
+	int result = flood_fill(game->map, game->map_struct.map_width, game->map_struct.map_height, (int)game->player.x, (int)game->player.y);
 	if (result)
 	{
 		print_map(game->map);	
