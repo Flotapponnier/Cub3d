@@ -6,12 +6,14 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 20:18:34 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/30 20:30:48 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <stdint.h>
+
+
 
 static int touch(float px, float py, t_game *game, int *side)
 {
@@ -22,61 +24,75 @@ static int touch(float px, float py, t_game *game, int *side)
         return (1);
     if (game->map[y][x] == '1')
     {
-        float frac_x = px / BLOCK - x;
-        float frac_y = py / BLOCK - y;
-        if (frac_x < 0.01 || frac_x > 0.99)
+        float frac_x = (px / BLOCK) - x;
+        float frac_y = (py / BLOCK) - y;
+        float edge = 0.01f;
+        int near_x_edge = (frac_x < edge || frac_x > 1.0f - edge);
+        int near_y_edge = (frac_y < edge || frac_y > 1.0f - edge);
+
+        if (near_x_edge && near_y_edge)
+            *side = 3;
+        else if (near_x_edge)
             *side = 1;
-        else if (frac_y < 0.01 || frac_y > 0.99)
+        else if (near_y_edge)
             *side = 2;
+        else
+            *side = 1;
         return (1);
     }
     return (0);
 }
+
 void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
     float cos_angle = cos(start_x);
     float sin_angle = sin(start_x);
     float ray_x = player->x;
     float ray_y = player->y;
-    int side = 0;
+	int side = 0;
 	uint32_t color = 0;
 
-    while (1)
-    {
-        ray_x += cos_angle * 0.1;
-        ray_y += sin_angle * 0.1;
-        if (touch(ray_x, ray_y, game, &side))
-            break;
-        if (DEBUG)
-            draw_raycast_line(game->img, (int)ray_x, (int)ray_y, RAYCAST_COLOR);
-    }
-    char direction = 'l';
-    if (side == 1)
-    {
-        if (cos_angle > 0)
+	while (1)
+	{
+		ray_x += cos_angle * 0.1;
+		ray_y += sin_angle * 0.1;
+		if (touch(ray_x, ray_y, game, &side))
+			break;
+		if (DEBUG)
+			draw_raycast_line(game->img, (int)ray_x, (int)ray_y, RAYCAST_COLOR);
+	}
+	char direction = 'l';
+	if (side == 1)
+	{
+		if (cos_angle > 0)
 		{
 			direction = 'E';
-            color = SQUARE3D_EAST;
+			color = SQUARE3D_EAST;
 		}
-        else
-		{
+		else
+	{
 			direction = 'W';
 			color = SQUARE3D_WEST;
 		}
 	}
-    else if (side == 2)
-    {
-        if (sin_angle > 0)
+	else if (side == 2)
+	{
+		if (sin_angle > 0)
 		{
 			direction = 'S';
-            color = SQUARE3D_SOUTH;
+			color = SQUARE3D_SOUTH;
 		}
-        else
+		else
 		{
 			direction = 'N';
-            color = SQUARE3D_NORTH;
+			color = SQUARE3D_NORTH;
 		}
-    }
+	}
+	else if (side == 3)
+	{
+		direction ='C';
+		color = 0x0000FF;
+	}
     printf("Wall hit: %c\n", direction);
     if (!DEBUG)
     {
@@ -87,13 +103,12 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
         if (dist <= 0) dist = 0.0001f;
         if (start_y < 0) start_y = 0;
         if (end >= HEIGHT) end = HEIGHT - 1;
-        //draw_floor_slice(game, i, start_y);
-		//draw_ceiling_slice(game, i, start_y);
+        draw_floor_slice(game, i, start_y);
+		draw_ceiling_slice(game, i, start_y);
         float wall_height = end - start_y;
         draw_wall_slice(game, i, start_y, wall_height, ray_x, ray_y, direction);
     }
 }
-
 
 void draw_loop(void *param)
 {
