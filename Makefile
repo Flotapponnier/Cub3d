@@ -35,7 +35,7 @@ SRC = src/main.c \
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Executable name
-NAME = cub3d
+NAME = cub3D
 
 # Build rule
 all: $(LIBFT) $(NAME)
