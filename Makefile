@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Imlx42/include -I./includes -g 
 
 # Libraries
-MLX_LIB = /Users/ftapponn/Documents/42/Cub3d/mlx42/build/libmlx42.a
+MLX_LIB = ./MLX42/build/libmlx42.a
 LIBFT = ./libft/libft.a
 GLFW_PATH = /Users/$(USER)/.brew/opt/glfw/lib
 LDFLAGS = -L$(GLFW_PATH) -lglfw -framework Cocoa -framework OpenGL -framework IOKit
