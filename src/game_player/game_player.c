@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 18:51:15 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/30 19:27:49 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void handle_strafing(t_player *player, float cos_angle, float sin_angle,
     
     if (player->key_right)
     {
-        new_x = player->x + sin_angle * speed;
-        new_y = player->y - cos_angle * speed;
+        new_x = player->x - sin_angle * speed;
+        new_y = player->y + cos_angle * speed;
         
         if (check_collision(new_x, new_y, map)) {
             if (!check_collision(new_x, player->y, map))
@@ -119,8 +119,8 @@ void handle_strafing(t_player *player, float cos_angle, float sin_angle,
     }
     if (player->key_left)
     {
-        new_x = player->x - sin_angle * speed;
-        new_y = player->y + cos_angle * speed;
+        new_x = player->x + sin_angle * speed;
+        new_y = player->y - cos_angle * speed;
         
         if (check_collision(new_x, new_y, map)) {
             if (!check_collision(new_x, player->y, map))
