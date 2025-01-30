@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
+/*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 18:55:06 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/01/30 20:18:34 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
         if (end >= HEIGHT) end = HEIGHT - 1;
         //draw_floor_slice(game, i, start_y);
 		//draw_ceiling_slice(game, i, start_y);
-        draw_wall_slice(game, i, start_y, end, color);
+        float wall_height = end - start_y;
+        draw_wall_slice(game, i, start_y, wall_height, ray_x, ray_y, direction);
     }
 }
 

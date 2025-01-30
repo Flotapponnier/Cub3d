@@ -84,6 +84,13 @@ typedef struct s_map
 	char *color_cell;
 } t_map;
 
+typedef struct s_texture {
+    mlx_texture_t *texture;
+    uint32_t *pixels;
+    int width;
+    int height;
+} t_texture;
+
 typedef struct s_game
 {
 	void *mlx;
@@ -95,6 +102,7 @@ typedef struct s_game
 	int size_line;
 	int endian;
 	t_player player;
+	t_texture textures[4]; // NO, SO, WE, EA
 }t_game;
 
 //destroy
@@ -132,7 +140,8 @@ void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_
 //draw 3d
 void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
 void draw_floor_slice(t_game *game, int i, int start_y);
-void draw_wall_slice(t_game *game, uint32_t i, float start_y, float end, uint32_t color);
+void draw_wall_slice(t_game *game, uint32_t i, float start_y, float wall_height,
+                    float ray_x, float ray_y, char direction);
 void draw_ceiling_slice(t_game *game, int i, int ceiling_end);
 
 //undraw
@@ -149,3 +158,7 @@ void print_map(char **map);
 int error(const char *msg);
 #endif 
 
+//texture
+int load_all_textures(t_game *game);
+void free_textures(t_game *game);
+uint32_t get_texture_color(t_texture *tex, float tex_x, float tex_y);

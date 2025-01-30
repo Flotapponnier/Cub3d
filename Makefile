@@ -30,6 +30,7 @@ SRC = src/main.c \
 	  src/hook/key_hook.c \
 	  src/game_player/game_player.c \
 	  src/raycaster/raycasting.c \
+	  src/textures.c \
 
 # Object files
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
