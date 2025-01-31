@@ -120,6 +120,7 @@ bool flood_fill(char **map, int width, int height, int start_x, int start_y);
 
 //map init
 int init_map(t_game *game, char *path_user_input);
+char	**get_map(t_map_node *map_list);
 
 //keyhook
 void key_release(void *param);
