@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 20:30:48 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/31 17:24:37 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 		ray_y += sin_angle * 0.1;
 		if (touch(ray_x, ray_y, game, &side))
 			break;
-		if (DEBUG)
+		if (game->debug_view)
 			draw_raycast_line(game->img, (int)ray_x, (int)ray_y, RAYCAST_COLOR);
 	}
 	char direction = 'l';
@@ -94,7 +94,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 		color = 0x0000FF;
 	}
     printf("Wall hit: %c\n", direction);
-    if (!DEBUG)
+    if (!game->debug_view)
     {
         float dist = fixed_distance(player->x, player->y, ray_x, ray_y, game);
         float height = (BLOCK / dist) * ((float)WIDTH / 2.0f);
@@ -121,7 +121,7 @@ void draw_loop(void *param)
 	player = &game->player;
 	move_player(player, game->map);
 	clear_image(game);
-	if(DEBUG)
+	if (game->debug_view)
 	{
 		draw_square(player->x, player->y, SIZE_PLAYER, PLAYER_COLOR, game);
 		draw_map(game);

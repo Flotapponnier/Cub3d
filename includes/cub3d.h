@@ -19,7 +19,6 @@
 #define PI 3.14159265359
 #define FOV (PI/3)
 #define BLOCK 64
-#define DEBUG 0
 
 
 #define ANGLE_SPEED 0.03
@@ -103,6 +102,7 @@ typedef struct s_game
 	t_texture textures[4]; // NO, SO, WE, EA
 	uint32_t floor_color;
 	uint32_t ceiling_color;
+	bool debug_view;
 }t_game;
 
 //destroy
