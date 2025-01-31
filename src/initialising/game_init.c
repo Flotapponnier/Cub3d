@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:28 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 20:20:28 by dilin            ###   ########.fr       */
+/*   Updated: 2025/01/31 17:06:54 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int init_game(t_game *game, char *path_user_input)
 		destroy_cub3d(NULL, 1);
 	print_map(game->map);
 	init_player(&game->player);
-	game->mlx = mlx_init(WIDTH, HEIGHT, "mlx", true);
+	game->mlx = mlx_init(WIDTH, HEIGHT, "mlx", false);
 	if(!game->mlx)
 		destroy_cub3d(NULL, 1);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
