@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/01 19:32:07 by dilin             #+#    #+#             */
+/*   Updated: 2025/02/01 20:54:41 by dilin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
-int error(const char *msg)
+int	error(const char *msg)
 {
-    write(2, RED "Error: ", 12);
-    write(2, msg, ft_strlen(msg));
-    write(2, RESET "\n", 1);
-    return (1);
+	write(2, RED "Error\n", 12);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
+	return (1);
 }
