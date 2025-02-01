@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 21:21:07 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/01 11:02:40 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void draw_wall_slice(t_game *game, uint32_t i, float start_y, float wall_height,
     
     while (start_y < end)
     {
+
         uint32_t color = get_texture_color(&game->textures[tex_index], tex_x, tex_pos);
         mlx_put_pixel(game->img, i, (int)start_y, color);
         tex_pos += step;
@@ -79,4 +80,21 @@ void draw_ceiling_slice(t_game *game, int i, int ceiling_end)
         mlx_put_pixel(game->img, i, j, game->ceiling_color);
         j++;
     }
+}
+
+void draw_3d_monitor(t_game *game, int x)
+{
+    float wall_height;
+    float start_y;
+
+    wall_height = (float)HEIGHT / game->ray.distance_to_wall;
+
+    start_y = (HEIGHT - wall_height) / 2;
+
+    draw_ceiling_slice(game, x, (int)start_y);
+
+    draw_wall_slice(game, x, start_y, wall_height,
+                    game->ray.map_x * BLOCK, game->ray.map_y * BLOCK,
+                    game->ray.direction);
+    draw_floor_slice(game, x, (int)(start_y + wall_height));
 }
