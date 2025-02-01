@@ -31,11 +31,6 @@
 #define PLAYER_COLOR 0x000000FFFF
 #define SQUARE2D_COLOR 0x00FFFF00FF
 
-#define SQUARE3D_NORTH 0xFFFF00FF
-#define SQUARE3D_EAST 0xCC9900FF
-#define SQUARE3D_WEST 0x009900FF
-#define SQUARE3D_SOUTH 0x00FF00FF
-
 
 #define ERROR_ARG "argument should be ./cub3d maps/correct/nameofmap"
 #define ERROR_EXTENSION "file should be a .cub file"
@@ -87,8 +82,6 @@ typedef struct s_ray
     double camera_x;
 	double dir_x;
 	double dir_y;
-	double plane_x;
-	double plane_y;
     double ray_dir_x;
     double ray_dir_y;
     int map_x;
@@ -100,7 +93,6 @@ typedef struct s_ray
     double side_dist_x;
     double side_dist_y;
     int side;
-    double perp_wall_dist;
     int line_height;
     int draw_start;
     int draw_end;
