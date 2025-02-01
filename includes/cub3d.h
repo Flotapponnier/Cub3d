@@ -17,7 +17,6 @@
 #define HEIGHT 720
 
 #define PI 3.14159265359
-#define FOV (PI/3)
 #define BLOCK 64
 
 
@@ -25,7 +24,6 @@
 #define SPEED_PLAYER 3
 #define SIZE_PLAYER 10
 #define SPACE_COLLISION 10
-#define PLAYER_HEIGHT 0.5f
 
 #define RAYCAST_COLOR 0x00FF0000FF
 #define PLAYER_COLOR 0x000000FFFF
