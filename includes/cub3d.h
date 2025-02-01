@@ -179,8 +179,7 @@ void draw_3d_monitor(t_game *game, int x);
 void clear_image(t_game *game);
 
 //raycasting
-void	cast_ray(t_game *game, t_ray *ray, int x);
-float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
+void  cast_ray(t_game *game, t_ray *ray, int x);
 
 //debug
 void print_debug_info(t_game *game);
