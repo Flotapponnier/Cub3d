@@ -165,7 +165,7 @@ void draw_square(int x, int y, int size, int color, t_game *game);
 void draw_map(t_game *game);
 
 //draw 2d
-void draw_raycast_line(mlx_image_t *img, uint32_t ray_x, uint32_t ray_y, uint32_t color);
+void	draw_line(int x1, int y1, int x2, int y2, t_game *game, int color);
 
 //draw 3d
 void draw_wall_3d(t_game *game, uint32_t i, uint32_t ray_x, uint32_t ray_y, t_player *player);
@@ -179,6 +179,7 @@ void draw_3d_monitor(t_game *game, int x);
 void clear_image(t_game *game);
 
 //raycasting
+void	cast_ray(t_game *game, t_ray *ray, int x);
 float fixed_distance(float x1, float y1, float x2, float y2, t_game *game);
 
 //debug
