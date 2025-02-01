@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 08:25:00 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:37:09 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,16 +186,37 @@ void cast_ray(t_game *game, t_ray *ray)
         if (ray->map_x < 0 || ray->map_y < 0) 
             break;
         
-        // Wall collision check
-        if (game->map[ray->map_y][ray->map_x] == '1')
-        {
-            if (ray->side == 0)
-                ray->distance_to_wall = (ray->map_x - player_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
-            else
-                ray->distance_to_wall = (ray->map_y - player_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
-            break;
-        }
-    }
+		// Wall collision check
+		if (game->map[ray->map_y][ray->map_x] == '1')
+		{
+			if (ray->side == 0)
+			{
+				ray->distance_to_wall = (ray->map_x - player_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+				if (ray->ray_dir_x > 0)
+				{
+					ray->direction = 'E';
+				}
+				else
+			{
+					ray->direction = 'W';
+				}
+			}
+			else
+		{
+				if (ray->ray_dir_y > 0)
+				{
+					ray->direction = 'S';
+				}
+				else
+			{
+					ray->direction = 'N';
+				}
+				ray->distance_to_wall = (ray->map_y - player_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+			}
+			printf("Wall hit: %c\n", ray->direction);
+			break;
+		}
+	}
 }
 
 void init_ray(t_player *player, t_ray *ray, int x)
