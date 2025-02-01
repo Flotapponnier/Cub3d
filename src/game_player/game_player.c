@@ -6,12 +6,11 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/30 19:27:49 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/01 19:31:30 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 void	handle_rotation(t_player *player, float angle_speed)
 {

@@ -6,10 +6,9 @@
 /*   By: eebert <eebert@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:25:26 by eebert            #+#    #+#             */
-/*   Updated: 2025/01/26 13:37:50 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:40:44 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/cub3d.h"
 
@@ -49,7 +48,7 @@ int	gc_add_fd(int fd)
 	*fd_ptr = fd;
 	new_node = ft_lstnew(fd_ptr);
 	if (!new_node)
-		destroy_cub3d(NULL,EXIT_FAILURE);
+		destroy_cub3d(NULL, EXIT_FAILURE);
 	ft_lstadd_back(get_gc_head_files(), new_node);
 	return (fd);
 }

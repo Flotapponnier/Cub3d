@@ -31,6 +31,7 @@ SRC = src/main.c \
 	  src/game_player/game_player.c \
 	  src/raycaster/raycasting.c \
 	  src/textures.c \
+	  src/textures_utils.c \
 
 # Object files
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))

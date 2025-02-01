@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:23 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:32:24 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:39:11 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static void	process_neighbors(int x, int y, t_queue **queue, char **map,
 	{
 		nx = x + directions[d][0];
 		ny = y + directions[d][1];
-		if (nx >= 0 && nx < width && ny >= 0 && ny < height &&
-			map[ny][nx] != '1' && !visited[ny][nx])
+		if (nx >= 0 && nx < width && ny >= 0 && ny < height
+			&& map[ny][nx] != '1' && !visited[ny][nx])
 		{
 			visited[ny][nx] = true;
 			enqueue(queue, nx, ny);

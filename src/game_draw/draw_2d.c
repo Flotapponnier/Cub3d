@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:50 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 11:26:37 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:32:00 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,3 @@ void	draw_line(int x1, int y1, int x2, int y2, t_game *game, int color)
 		}
 	}
 }
-
