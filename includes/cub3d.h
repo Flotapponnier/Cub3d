@@ -104,6 +104,7 @@ typedef struct s_ray
     int line_height;
     int draw_start;
     int draw_end;
+	char direction;
 	double distance_to_wall;
 } t_ray;
 
