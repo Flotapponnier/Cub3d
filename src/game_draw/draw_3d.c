@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 16:40:05 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/01 19:10:44 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ void draw_3d_monitor(t_game *game, int x)
         perp_wall_dist = (game->ray.map_y - game->player.y / 64.0 + 
             (1 - game->ray.step_y) / 2) / game->ray.ray_dir_y;
 
-    // Calculate wall height with proper scaling
-    int line_height = (int)(HEIGHT / perp_wall_dist);
-    
-    // Calculate lowest and highest pixel to fill in current stripe
+    // Calculate correct wall height
+    double correction = 0.85; // Ugly solution, but works. Can be adjusted between 0 and 1 for fine-tuning
+    int line_height = (int)((HEIGHT * correction) / perp_wall_dist);
+
+    // Calculate wall boundaries
     int draw_start = -line_height / 2 + HEIGHT / 2;
     if (draw_start < 0)
         draw_start = 0;
