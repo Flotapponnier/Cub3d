@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:50 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/26 13:37:56 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:26:37 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,40 @@ void	draw_square(int x, int y, int size, int color, t_game *game)
 		mlx_put_pixel(game->img, x + i, y + size, color);
 }
 
-void	draw_raycast_line(mlx_image_t *image, uint32_t ray_x, uint32_t ray_y,
-		uint32_t color)
+void	draw_line(int x1, int y1, int x2, int y2, t_game *game, int color)
 {
-	mlx_put_pixel(image, ray_x, ray_y, color);
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+
+	dx = abs(x2 - x1);
+	dy = abs(y2 - y1);
+	sx = -1;
+	sy = -1;
+	if (x1 < x2)
+		sx = 1;
+	if (y1 < y2)
+		sy = 1;
+	err = dx - dy;
+	while (1)
+	{
+		mlx_put_pixel(game->img, x1, y1, color);
+		if (x1 == x2 && y1 == y2)
+			break ;
+		e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x1 += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			y1 += sy;
+		}
+	}
 }
+
