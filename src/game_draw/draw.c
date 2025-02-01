@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/31 17:24:37 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/01 08:13:26 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 
-
+/*
 static int touch(float px, float py, t_game *game, int *side)
 {
     int x = px / BLOCK;
@@ -135,4 +135,141 @@ void draw_loop(void *param)
 		start_x += fraction;
 		i++;
 	}
+}
+*/
+void cast_ray(t_game *game, t_ray *ray)
+{
+    // Convert player position to grid coordinates
+    double player_x = game->player.x / 64.0;
+    double player_y = game->player.y / 64.0;
+    
+    // Initialize step and side distances
+    ray->step_x = (ray->ray_dir_x < 0) ? -1 : 1;
+    ray->side_dist_x = (ray->ray_dir_x < 0) 
+        ? (player_x - ray->map_x) * ray->delta_dist_x 
+        : (ray->map_x + 1.0 - player_x) * ray->delta_dist_x;
+
+    ray->step_y = (ray->ray_dir_y < 0) ? -1 : 1;
+    ray->side_dist_y = (ray->ray_dir_y < 0)
+        ? (player_y - ray->map_y) * ray->delta_dist_y
+        : (ray->map_y + 1.0 - player_y) * ray->delta_dist_y;
+
+    // DDA algorithm
+    while (1)
+    {
+        if (ray->side_dist_x < ray->side_dist_y)
+        {
+            ray->side_dist_x += ray->delta_dist_x;
+            ray->map_x += ray->step_x;
+            ray->side = 0;
+        }
+        else
+        {
+            ray->side_dist_y += ray->delta_dist_y;
+            ray->map_y += ray->step_y;
+            ray->side = 1;
+        }
+
+        // Boundary check
+        if (ray->map_x < 0 || ray->map_y < 0) 
+            break;
+
+        // Wall collision check (corrected map indexing)
+		if (game->map[ray->map_y][ray->map_x] == '1')
+        {
+            // Calculate correct distance
+            ray->distance_to_wall = (ray->side == 0)
+                ? (ray->map_x - player_x + (1 - ray->step_x) / 2) / ray->ray_dir_x
+                : (ray->map_y - player_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+            break;
+        }
+    }
+}
+
+void init_ray(t_player *player, t_ray *ray, int x)
+{
+    // Camera plane calculation (FOV)
+    
+    double fov_scale = tan(90 * M_PI / 360.0);  // 90° for half of 180° FOV
+    ray->camera_x = 2 * x / (double)WIDTH - 1;  // X in camera space [-1, 1]
+    ray->dir_x = cos(player->angle);
+    ray->dir_y = sin(player->angle);
+    
+    // Calculate ray direction with FOV
+    ray->ray_dir_x = ray->dir_x + (-ray->dir_y) * fov_scale * ray->camera_x;
+    ray->ray_dir_y = ray->dir_y + ray->dir_x * fov_scale * ray->camera_x;
+    
+    // Initial map grid position
+    ray->map_x = (int)player->x / 64;
+    ray->map_y = (int)player->y / 64;
+    
+    // Calculate delta distances
+    ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+    ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+}
+void draw_line(int x1, int y1, int x2, int y2, t_game *game, int color)
+{
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;  // Direction of x
+    int sy = (y1 < y2) ? 1 : -1;  // Direction of y
+    int err = dx - dy;            // Error value
+
+    while (1)
+    {
+        // Draw the pixel at (x1, y1)
+        mlx_put_pixel(game->img, x1, y1, color);
+
+        // Stop if we've reached the end point
+        if (x1 == x2 && y1 == y2)
+            break;
+
+        int e2 = 2 * err;
+
+        // Adjust x-coordinate
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x1 += sx;
+        }
+
+        // Adjust y-coordinate
+        if (e2 < dx)
+        {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
+void draw_loop(void *param)
+{
+    t_game *game = (t_game *)param;
+	t_player *player = &game->player;
+
+	move_player(player, game->map);
+    clear_image(game);
+
+    for (int x = 0; x < WIDTH; x++)
+    {
+	
+        init_ray(&game->player, &game->ray, x);
+        cast_ray(game, &game->ray);
+
+        // Calculate endpoints with proper coordinate system
+        double wall_x = game->player.x + game->ray.ray_dir_x * game->ray.distance_to_wall * 64;
+        double wall_y = game->player.y + game->ray.ray_dir_y * game->ray.distance_to_wall * 64;
+        
+        // Convert to screen coordinates
+        int ray_end_x = (int)wall_x;
+        int ray_end_y = (int)wall_y;
+
+        // Draw debug ray
+            draw_line(game->player.x, game->player.y, 
+                     ray_end_x, ray_end_y, game, RAYCAST_COLOR);
+    }
+    
+    // Draw player and map in debug mode
+        draw_square(game->player.x, game->player.y, SIZE_PLAYER, PLAYER_COLOR, game);
+        draw_map(game);
 }
