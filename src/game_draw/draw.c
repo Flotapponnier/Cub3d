@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 11:28:31 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:02:08 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,6 @@ void	draw_loop(void *param)
 }
 */
 
-
-
-
-
 void	draw_loop(void *param)
 {
 	t_game		*game;
@@ -182,18 +178,25 @@ void	draw_loop(void *param)
 		cast_ray(game, &game->ray, x);
 		// Draw the wall slice with textures
 		// Draw the ceiling slice
-		draw_3d_monitor(game, x);
+		if(!game->debug_view)
+			draw_3d_monitor(game, x);
 		wall_x = game->player.x + game->ray.ray_dir_x
 			* game->ray.distance_to_wall * 64;
 		wall_y = game->player.y + game->ray.ray_dir_y
 			* game->ray.distance_to_wall * 64;
 		ray_end_x = (int)wall_x;
 		ray_end_y = (int)wall_y;
-		draw_line(game->player.x, game->player.y, ray_end_x, ray_end_y, game,
-				RAYCAST_COLOR);
+		if(game->debug_view)
+		{
+			draw_line(game->player.x, game->player.y, ray_end_x, ray_end_y, game,
+			 RAYCAST_COLOR);
+		}
 		x++;
 	}
-	draw_square(game->player.x, game->player.y, SIZE_PLAYER, PLAYER_COLOR,
-			game);
-	draw_map(game);
+	if(game->debug_view)
+	{
+		draw_square(game->player.x, game->player.y, SIZE_PLAYER, PLAYER_COLOR,
+			  game);
+		draw_map(game);
+	}
 }
