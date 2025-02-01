@@ -20,7 +20,7 @@
 #define BLOCK 64
 
 
-#define ANGLE_SPEED 0.03
+#define ANGLE_SPEED 0.05
 #define SPEED_PLAYER 3
 #define SIZE_PLAYER 10
 #define SPACE_COLLISION 10

@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:52:28 by dilin             #+#    #+#             */
-/*   Updated: 2025/01/30 20:29:18 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/01 16:53:13 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,20 @@ int load_all_textures(t_game *game)
 
 uint32_t get_texture_color(t_texture *tex, float tex_x, float tex_y)
 {
+    // Ensure texture coordinates are within bounds
+    tex_x = fmod(tex_x, 1.0);
+    tex_y = fmod(tex_y, 1.0);
+    
+    if (tex_x < 0) tex_x += 1.0;
+    if (tex_y < 0) tex_y += 1.0;
+
+    // Convert to pixel coordinates
     int x = (int)(tex_x * tex->width);
     int y = (int)(tex_y * tex->height);
     
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x >= tex->width) x = tex->width - 1;
-    if (y >= tex->height) y = tex->height - 1;
+    // Clamp values
+    x = x < 0 ? 0 : x >= tex->width ? tex->width - 1 : x;
+    y = y < 0 ? 0 : y >= tex->height ? tex->height - 1 : y;
 
     uint32_t color = tex->pixels[y * tex->width + x];
     uint8_t a = (color >> 24) & 0xFF;

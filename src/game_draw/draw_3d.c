@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:53 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 11:02:40 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:40:05 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,57 @@ void draw_ceiling_slice(t_game *game, int i, int ceiling_end)
 
 void draw_3d_monitor(t_game *game, int x)
 {
-    float wall_height;
-    float start_y;
+    // Fix fisheye effect by using perpendicular distance
+    double perp_wall_dist;
+    if (game->ray.side == 0)
+        perp_wall_dist = (game->ray.map_x - game->player.x / 64.0 + 
+            (1 - game->ray.step_x) / 2) / game->ray.ray_dir_x;
+    else
+        perp_wall_dist = (game->ray.map_y - game->player.y / 64.0 + 
+            (1 - game->ray.step_y) / 2) / game->ray.ray_dir_y;
 
-    wall_height = (float)HEIGHT / game->ray.distance_to_wall;
+    // Calculate wall height with proper scaling
+    int line_height = (int)(HEIGHT / perp_wall_dist);
+    
+    // Calculate lowest and highest pixel to fill in current stripe
+    int draw_start = -line_height / 2 + HEIGHT / 2;
+    if (draw_start < 0)
+        draw_start = 0;
+    int draw_end = line_height / 2 + HEIGHT / 2;
+    if (draw_end >= HEIGHT)
+        draw_end = HEIGHT - 1;
 
-    start_y = (HEIGHT - wall_height) / 2;
+    // Draw ceiling
+    draw_ceiling_slice(game, x, draw_start);
 
-    draw_ceiling_slice(game, x, (int)start_y);
+    // Calculate wall X coordinate where ray hit
+    double wall_x;
+    if (game->ray.side == 0)
+        wall_x = game->player.y / 64.0 + perp_wall_dist * game->ray.ray_dir_y;
+    else
+        wall_x = game->player.x / 64.0 + perp_wall_dist * game->ray.ray_dir_x;
+    wall_x -= floor(wall_x);
 
-    draw_wall_slice(game, x, start_y, wall_height,
-                    game->ray.map_x * BLOCK, game->ray.map_y * BLOCK,
-                    game->ray.direction);
-    draw_floor_slice(game, x, (int)(start_y + wall_height));
+    // Draw wall with texture
+    int tex_num;
+    if (game->ray.direction == 'N') tex_num = 0;
+    else if (game->ray.direction == 'S') tex_num = 1;
+    else if (game->ray.direction == 'W') tex_num = 2;
+    else tex_num = 3;
+
+    float step = 1.0 * game->textures[tex_num].height / line_height;
+    float tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
+    
+    // Draw the wall line
+    for (int y = draw_start; y < draw_end; y++)
+    {
+        int tex_y = (int)tex_pos & (game->textures[tex_num].height - 1);
+        tex_pos += step;
+        uint32_t color = get_texture_color(&game->textures[tex_num], wall_x, 
+            (float)tex_y / game->textures[tex_num].height);
+        mlx_put_pixel(game->img, x, y, color);
+    }
+
+    // Draw floor
+    draw_floor_slice(game, x, draw_end);
 }
