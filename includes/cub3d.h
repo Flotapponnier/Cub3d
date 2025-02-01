@@ -81,6 +81,33 @@ typedef struct s_map
 	char *color_cell;
 } t_map;
 
+
+typedef struct s_ray 
+{
+    double camera_x;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+    double ray_dir_x;
+    double ray_dir_y;
+    int map_x;
+    int map_y;
+    double delta_dist_x;
+    double delta_dist_y;
+    int step_x;
+    int step_y;
+    double side_dist_x;
+    double side_dist_y;
+    int side;
+    double perp_wall_dist;
+    int line_height;
+    int draw_start;
+    int draw_end;
+	double distance_to_wall;
+} t_ray;
+
+
 typedef struct s_texture {
     mlx_texture_t *texture;
     uint32_t *pixels;
@@ -94,6 +121,7 @@ typedef struct s_game
 
     mlx_image_t *img;
 	t_map map_struct;
+	t_ray ray;
 	char **map;
 	int bpp;
 	int size_line;
