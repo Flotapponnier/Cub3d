@@ -173,6 +173,7 @@ void draw_floor_slice(t_game *game, int i, int start_y);
 void draw_wall_slice(t_game *game, uint32_t i, float start_y, float wall_height,
                     float ray_x, float ray_y, char direction);
 void draw_ceiling_slice(t_game *game, int i, int ceiling_end);
+void draw_3d_monitor(t_game *game, int x);
 
 //undraw
 void clear_image(t_game *game);
