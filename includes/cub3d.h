@@ -177,9 +177,10 @@ void print_map(char **map);
 
 //error
 int error(const char *msg);
-#endif 
 
 //texture
 int load_all_textures(t_game *game);
 void free_textures(t_game *game);
 uint32_t get_texture_color(t_texture *tex, float tex_x, float tex_y);
+
+#endif
