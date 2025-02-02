@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:46 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 19:25:27 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:37:02 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static bool	is_valid_rgb(int r, int g, int b)
 {
 	return (!(r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255));
 }
-
 
 uint32_t	convert_rgb_to_uint(char *color_str)
 {
