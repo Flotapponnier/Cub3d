@@ -23,6 +23,10 @@ SRC = src/main.c \
 	  src/initialising/map_texture_validator.c \
 	  src/initialising/player_validator.c \
 	  src/initialising/queue_operations.c \
+	  src/initialising/map_array.c \
+	  src/initialising/map_node.c \
+	  src/initialising/map_rgb.c \
+	  src/initialising/map_validation.c \
 	  src/gcollector/gc_files.c \
 	  src/gcollector/gc_list.c \
 	  src/gcollector/gcollector.c \
