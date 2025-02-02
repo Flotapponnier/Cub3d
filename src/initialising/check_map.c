@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:15 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/01/31 18:30:45 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 15:36:46 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool is_valid_rgb(const char *color_str)
     int r, g, b;
     bool valid = true;
     
-    rgb = ft_split(color_str, ',');
+    rgb = gc_add_split(color_str, ',');
     if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3]) {
         gc_free_ptr(rgb);
         return false;
@@ -28,14 +28,12 @@ static bool is_valid_rgb(const char *color_str)
     g = ft_atoi(rgb[1]);
     b = ft_atoi(rgb[2]);
 
-    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-        valid = false;
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		valid = false;
 
-    for (int i = 0; rgb[i]; i++)
-        gc_free_ptr(rgb[i]);
-    gc_free_ptr(rgb);
-    
-    return valid;
+	gc_free_split(rgb);
+
+	return valid;
 }
 
 static bool validate_texture_path(const char *path) 
