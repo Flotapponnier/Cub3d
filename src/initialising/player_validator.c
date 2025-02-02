@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:54:00 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 17:46:46 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 18:24:53 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	set_player_direction(char c, t_player *player)
 
 bool	check_player_position(char c, int x, int y, t_map_validator *ctx)
 {
-	(ctx->player_count)++;
+	(*ctx->player_count)++;
 	if (*(ctx->player_count) > 1)
 		return (false);
 	ctx->player->x = x;
