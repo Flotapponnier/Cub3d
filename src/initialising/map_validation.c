@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:18 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 19:27:53 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:33:43 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static int	validate_map_enclosed(t_game *game)
 			game->map_struct.map_height, (t_pos){game->player.x,
 			game->player.y});
 	if (result)
-	{
-		print_map(game->map);
 		return (error("Map is not enclosed!\n"));
-	}
 	return (0);
 }
 

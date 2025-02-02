@@ -13,7 +13,6 @@ OBJ_DIR = obj
 
 # Source files
 SRC = src/main.c \
-	  src/debug.c \
 	  src/error/error.c \
 	  src/initialising/game_init.c \
 	  src/initialising/init_map.c \
