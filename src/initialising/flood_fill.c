@@ -6,42 +6,11 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:23 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 20:39:11 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 10:01:04 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	enqueue(t_queue **queue, int x, int y)
-{
-	t_queue	*new;
-	t_queue	*temp;
-
-	new = gc_malloc(sizeof(t_queue));
-	new->x = x;
-	new->y = y;
-	new->next = NULL;
-	if (!(*queue))
-		*queue = new;
-	else
-	{
-		temp = *queue;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
-
-void	dequeue(t_queue **queue)
-{
-	t_queue	*temp;
-
-	if (!(*queue))
-		return ;
-	temp = *queue;
-	*queue = (*queue)->next;
-	gc_free_ptr(temp);
-}
 
 static bool	**create_visited(int height, int width)
 {
@@ -83,52 +52,54 @@ static bool	is_on_edge(int x, int y, int width, int height)
 	return (x == 0 || x == width - 1 || y == 0 || y == height - 1);
 }
 
-static void	process_neighbors(int x, int y, t_queue **queue, char **map,
-		bool **visited, int width, int height)
+static void	process_neighbors(t_pos pos, t_queue **queue, t_map_data *map_data)
 {
 	const int	directions[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 	int			d;
-	int			nx;
-	int			ny;
+	t_pos		new_pos;
 
 	d = 0;
 	while (d < 4)
 	{
-		nx = x + directions[d][0];
-		ny = y + directions[d][1];
-		if (nx >= 0 && nx < width && ny >= 0 && ny < height
-			&& map[ny][nx] != '1' && !visited[ny][nx])
+		new_pos.x = pos.x + directions[d][0];
+		new_pos.y = pos.y + directions[d][1];
+		if (new_pos.x >= 0 && new_pos.x < map_data->width && new_pos.y >= 0
+			&& new_pos.y < map_data->height
+			&& map_data->map[new_pos.y][new_pos.x] != '1'
+			&& !map_data->visited[new_pos.y][new_pos.x])
 		{
-			visited[ny][nx] = true;
-			enqueue(queue, nx, ny);
+			map_data->visited[new_pos.y][new_pos.x] = true;
+			enqueue(queue, new_pos.x, new_pos.y);
 		}
 		d++;
 	}
 }
 
-bool	flood_fill(char **map, int width, int height, int start_x, int start_y)
+bool	flood_fill(char **map, int width, int height, t_pos start)
 {
-	bool	**visited;
-	t_queue	*queue;
-	int		x;
-	int		y;
+	t_map_data	map_data;
+	t_queue		*queue;
+	t_pos		current;
 
-	visited = create_visited(height, width);
+	map_data.map = map;
+	map_data.width = width;
+	map_data.height = height;
+	map_data.visited = create_visited(height, width);
 	queue = NULL;
-	enqueue(&queue, start_x, start_y);
-	visited[start_y][start_x] = true;
+	enqueue(&queue, start.x, start.y);
+	map_data.visited[start.y][start.x] = true;
 	while (queue)
 	{
-		x = queue->x;
-		y = queue->y;
+		current.x = queue->x;
+		current.y = queue->y;
 		dequeue(&queue);
-		if (is_on_edge(x, y, width, height))
+		if (is_on_edge(current.x, current.y, width, height))
 		{
-			free_visited(visited, height);
+			free_visited(map_data.visited, height);
 			return (true);
 		}
-		process_neighbors(x, y, &queue, map, visited, width, height);
+		process_neighbors(current, &queue, &map_data);
 	}
-	free_visited(visited, height);
+	free_visited(map_data.visited, height);
 	return (false);
 }

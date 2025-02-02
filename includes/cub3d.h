@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/01 20:50:35 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 11:35:30 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,34 @@ typedef struct s_map
 	char				*color_cell;
 }						t_map;
 
+typedef struct s_map_data
+{
+	char				**map;
+	int					width;
+	int					height;
+	bool				**visited;
+}						t_map_data;
+
+typedef struct s_map_validator
+{
+	t_game				*game;
+	t_player			*player;
+	int					*player_count;
+	char				**map;
+}						t_map_validator;
+
+typedef struct s_pos
+{
+	int					x;
+	int					y;
+}						t_pos;
+
+typedef struct s_angle
+{
+	float				sin;
+	float				cos;
+}						t_angle;
+
 typedef struct s_ray
 {
 	double				camera_x;
@@ -145,7 +173,7 @@ int						check_map(t_map_node *map_list, t_player *player,
 
 // flood_fill
 bool					flood_fill(char **map, int width, int height,
-							int start_x, int start_y);
+							t_pos start);
 
 // map init
 int						init_map(t_game *game, char *path_user_input);

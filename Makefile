@@ -19,6 +19,10 @@ SRC = src/main.c \
 	  src/initialising/init_map.c \
 	  src/initialising/check_map.c \
 	  src/initialising/flood_fill.c \
+	  src/initialising/map_char_validator.c \
+	  src/initialising/map_texture_validator.c \
+	  src/initialising/player_validator.c \
+	  src/initialising/queue_operations.c \
 	  src/gcollector/gc_files.c \
 	  src/gcollector/gc_list.c \
 	  src/gcollector/gcollector.c \
@@ -29,6 +33,8 @@ SRC = src/main.c \
 	  src/game_draw/undraw.c \
 	  src/hook/key_hook.c \
 	  src/game_player/game_player.c \
+	  src/game_player/player_collision.c \
+	  src/game_player/player_movement.c \
 	  src/raycaster/raycasting.c \
 	  src/textures.c \
 	  src/textures_utils.c \
