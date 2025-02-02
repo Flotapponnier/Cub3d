@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 13:48:45 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 15:11:19 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,43 @@ typedef struct s_game
 	bool				debug_view;
 }						t_game;
 
+typedef struct s_line
+{
+	int					dx;
+	int					dy;
+	int					sx;
+	int					sy;
+	int					err;
+	int					e2;
+	int					x1;
+	int					y1;
+	int					x2;
+	int					y2;
+}						t_line;
+
+typedef struct s_line_params
+{
+	int					end_x;
+	int					end_y;
+	int					color;
+}						t_line_params;
+
+typedef struct s_line_coord
+{
+	int					start_x;
+	int					start_y;
+	int					end_x;
+	int					end_y;
+}						t_line_coord;
+
+typedef struct s_square_params
+{
+	int					x;
+	int					y;
+	int					size;
+	int					color;
+}						t_square_params;
+
 // destroy
 void					destroy_cub3d(mlx_t *mlx, int status);
 
@@ -198,19 +235,15 @@ void					move_player(t_player *player, char **map);
 // draw
 void					draw_loop(void *param);
 void					draw_map(t_game *game);
-void					draw_square(int x, int y, int size, int color,
-							t_game *game);
+void					draw_square(t_square_params params, t_game *game);
 void					draw_map(t_game *game);
 
 // draw 2d
-void					draw_line(int x1, int y1, int x2, int y2, t_game *game,
-							int color);
+void					draw_line(int start_x, int start_y,
+							t_line_params *params, t_game *game);
 
 // draw 3d
 void					draw_floor_slice(t_game *game, int i, int start_y);
-void					draw_wall_slice(t_game *game, uint32_t i, float start_y,
-							float wall_height, float ray_x, float ray_y,
-							char direction);
 void					draw_ceiling_slice(t_game *game, int i,
 							int ceiling_end);
 void					draw_3d_monitor(t_game *game, int x);

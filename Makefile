@@ -29,6 +29,7 @@ SRC = src/main.c \
 	  src/destroy_cub3d.c \
 	  src/game_draw/draw.c \
 	  src/game_draw/draw_2d.c \
+	  src/game_draw/draw_2d_line.c \
 	  src/game_draw/draw_3d.c \
 	  src/game_draw/draw_3d_calc.c \
 	  src/game_draw/undraw.c \

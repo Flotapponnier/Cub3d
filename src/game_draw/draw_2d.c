@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:50 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 19:32:00 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 15:08:32 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	draw_map(t_game *game)
 {
-	char	**map;
-	int		y;
-	int		x;
+	char			**map;
+	int				y;
+	int				x;
+	t_square_params	params;
 
 	map = game->map;
 	y = 0;
@@ -26,64 +27,35 @@ void	draw_map(t_game *game)
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
-				draw_square(x * BLOCK, y * BLOCK, BLOCK, SQUARE2D_COLOR, game);
+			{
+				params.x = x * BLOCK;
+				params.y = y * BLOCK;
+				params.size = BLOCK;
+				params.color = SQUARE2D_COLOR;
+				draw_square(params, game);
+			}
 			x++;
 		}
 		y++;
 	}
 }
 
-void	draw_square(int x, int y, int size, int color, t_game *game)
+void	draw_square(t_square_params params, t_game *game)
 {
 	int	i;
 
 	i = -1;
-	while (++i < size)
-		mlx_put_pixel(game->img, x + i, y, color);
+	while (++i < params.size)
+		mlx_put_pixel(game->img, params.x + i, params.y, params.color);
 	i = -1;
-	while (++i < size)
-		mlx_put_pixel(game->img, x, y + i, color);
+	while (++i < params.size)
+		mlx_put_pixel(game->img, params.x, params.y + i, params.color);
 	i = -1;
-	while (++i < size)
-		mlx_put_pixel(game->img, x + size, y + i, color);
+	while (++i < params.size)
+		mlx_put_pixel(game->img, params.x + params.size, params.y + i,
+			params.color);
 	i = -1;
-	while (++i < size)
-		mlx_put_pixel(game->img, x + i, y + size, color);
-}
-
-void	draw_line(int x1, int y1, int x2, int y2, t_game *game, int color)
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	sx = -1;
-	sy = -1;
-	if (x1 < x2)
-		sx = 1;
-	if (y1 < y2)
-		sy = 1;
-	err = dx - dy;
-	while (1)
-	{
-		mlx_put_pixel(game->img, x1, y1, color);
-		if (x1 == x2 && y1 == y2)
-			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-	}
+	while (++i < params.size)
+		mlx_put_pixel(game->img, params.x + i, params.y + params.size,
+			params.color);
 }

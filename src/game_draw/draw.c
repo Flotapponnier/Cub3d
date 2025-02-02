@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 12:58:04 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 15:09:34 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,11 @@ void	draw_loop(void *param)
 
 static void	draw_ray(t_game *game, int x)
 {
-	double	wall_x;
-	double	wall_y;
-	int		ray_end_x;
-	int		ray_end_y;
+	double			wall_x;
+	double			wall_y;
+	int				ray_end_x;
+	int				ray_end_y;
+	t_line_params	params;
 
 	cast_ray(game, &game->ray, x);
 	if (!game->debug_view)
@@ -174,17 +175,24 @@ static void	draw_ray(t_game *game, int x)
 		* 64;
 	ray_end_x = (int)wall_x;
 	ray_end_y = (int)wall_y;
+	params.end_x = ray_end_x;
+	params.end_y = ray_end_y;
+	params.color = RAYCAST_COLOR;
 	if (game->debug_view)
-		draw_line(game->player.x, game->player.y, ray_end_x, ray_end_y, game,
-			RAYCAST_COLOR);
+		draw_line(game->player.x, game->player.y, &params, game);
 }
 
 static void	draw_debug_view(t_game *game)
 {
+	t_square_params	params;
+
 	if (!game->debug_view)
 		return ;
-	draw_square(game->player.x, game->player.y, SIZE_PLAYER, PLAYER_COLOR,
-		game);
+	params.x = game->player.x;
+	params.y = game->player.y;
+	params.size = SIZE_PLAYER;
+	params.color = PLAYER_COLOR;
+	draw_square(params, game);
 	draw_map(game);
 }
 
