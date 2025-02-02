@@ -30,6 +30,7 @@ SRC = src/main.c \
 	  src/game_draw/draw.c \
 	  src/game_draw/draw_2d.c \
 	  src/game_draw/draw_3d.c \
+	  src/game_draw/draw_3d_calc.c \
 	  src/game_draw/undraw.c \
 	  src/hook/key_hook.c \
 	  src/game_player/game_player.c \

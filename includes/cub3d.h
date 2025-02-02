@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 11:35:30 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 13:48:45 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,16 @@ typedef struct s_ray
 	char				direction;
 	double				distance_to_wall;
 }						t_ray;
+
+typedef struct s_draw_params
+{
+	double				perp_wall_dist;
+	int					line_height;
+	int					draw_start;
+	int					draw_end;
+	double				wall_x;
+	int					tex_num;
+}						t_draw_params;
 
 typedef struct s_texture
 {
