@@ -6,13 +6,13 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:37:22 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 13:37:41 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:48:40 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static double	calculate_wall_distance(t_ray *ray, t_player *player)
+double	calculate_wall_distance(t_ray *ray, t_player *player)
 {
 	if (ray->side == 0)
 		return ((ray->map_x - player->x / 64.0 + (1 - ray->step_x) / 2)
@@ -21,7 +21,7 @@ static double	calculate_wall_distance(t_ray *ray, t_player *player)
 		/ ray->ray_dir_y);
 }
 
-static void	calculate_draw_params(double perp_wall_dist, int *draw_start,
+void	calculate_draw_params(double perp_wall_dist, int *draw_start,
 		int *draw_end, int *line_height)
 {
 	double	correction;
@@ -36,7 +36,7 @@ static void	calculate_draw_params(double perp_wall_dist, int *draw_start,
 		*draw_end = HEIGHT - 1;
 }
 
-static void	calculate_wall_texture(t_game *game, double perp_wall_dist,
+void	calculate_wall_texture(t_game *game, double perp_wall_dist,
 		double *wall_x, int *tex_num)
 {
 	if (game->ray.side == 0)

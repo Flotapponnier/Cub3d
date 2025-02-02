@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 15:11:19 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:54:42 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,6 @@ typedef struct s_map_data
 	bool				**visited;
 }						t_map_data;
 
-typedef struct s_map_validator
-{
-	t_game				*game;
-	t_player			*player;
-	int					*player_count;
-	char				**map;
-}						t_map_validator;
-
 typedef struct s_pos
 {
 	int					x;
@@ -169,6 +161,14 @@ typedef struct s_game
 	uint32_t			ceiling_color;
 	bool				debug_view;
 }						t_game;
+
+typedef struct s_map_validator
+{
+	t_game				*game;
+	t_player			*player;
+	int					*player_count;
+	char				**map;
+}						t_map_validator;
 
 typedef struct s_line
 {
@@ -266,5 +266,37 @@ int						load_all_textures(t_game *game);
 void					free_textures(t_game *game);
 uint32_t				get_texture_color(t_texture *tex, float tex_x,
 							float tex_y);
+
+// unsorted (I'm lazy)
+uint32_t				convert_rgb_to_uint(char *color_str);
+int						process_map_data(t_game *game, t_map_node *map_list);
+t_map_node				*load_map(int fd);
+int						process_map_line(char *line, int y,
+							t_map_validator *ctx);
+int						process_map_metadata(t_map *map_struct, char *line);
+bool					is_map_line(const char *line);
+bool					validate_map_textures_colors(t_map *map_struct);
+void					enqueue(t_queue **queue, int x, int y);
+void					dequeue(t_queue **queue);
+bool					check_player_position(char c, int x, int y,
+							t_map_validator *ctx);
+bool					check_surrounded_by_walls(char **map, int x, int y,
+							t_game *game);
+void					clean_newline(char *str);
+int						count_map_lines(t_map_node *map_list);
+double					calculate_wall_distance(t_ray *ray, t_player *player);
+void					calculate_draw_params(double perp_wall_dist,
+							int *draw_start, int *draw_end, int *line_height);
+void					calculate_wall_texture(t_game *game,
+							double perp_wall_dist, double *wall_x,
+							int *tex_num);
+void					handle_forward(t_player *player, float cos_angle,
+							float sin_angle, char **map);
+void					handle_backward(t_player *player, float cos_angle,
+							float sin_angle, char **map);
+void					handle_strafe_direction(t_player *player, t_angle angle,
+							int direction, char **map);
+void					update_position(t_player *player, float new_x,
+							float new_y, char **map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:52:56 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 10:53:49 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:41:19 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	is_valid_map_char(char c)
 		|| c == 'W');
 }
 
-static bool	is_map_line(const char *line)
+bool	is_map_line(const char *line)
 {
 	while (*line)
 	{
@@ -44,7 +44,7 @@ static int	handle_map_char(char c, int x, int y, t_map_validator *ctx)
 	return (0);
 }
 
-static int	process_map_line(char *line, int y, t_map_validator *ctx)
+int	process_map_line(char *line, int y, t_map_validator *ctx)
 {
 	int	x;
 

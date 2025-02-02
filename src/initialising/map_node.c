@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:39 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 16:08:07 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:47:17 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_map_node	*add_map_node(t_map_node **head, char *line)
 	return (new_node);
 }
 
-static t_map_node	*load_map(int fd)
+t_map_node	*load_map(int fd)
 {
 	t_map_node	*map_list;
 	char		*line;
@@ -53,7 +53,7 @@ static t_map_node	*load_map(int fd)
 	return (map_list);
 }
 
-static void	clean_newline(char *str)
+void	clean_newline(char *str)
 {
 	int	len;
 
@@ -62,7 +62,7 @@ static void	clean_newline(char *str)
 		str[len - 1] = '\0';
 }
 
-static int	count_map_lines(t_map_node *map_list)
+int	count_map_lines(t_map_node *map_list)
 {
 	int			count;
 	t_map_node	*temp;
@@ -77,7 +77,7 @@ static int	count_map_lines(t_map_node *map_list)
 	return (count);
 }
 
-static int	process_map_line(t_map *map_struct, char *line)
+int	process_map_metadata(t_map *map_struct, char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3) && !map_struct->path_north)
 		map_struct->path_north = ft_strtrim(line + 3, " \n");

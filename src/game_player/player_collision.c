@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:29:00 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 11:30:14 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:49:48 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static bool	check_collision(float new_x, float new_y, char **map)
 	return (false);
 }
 
-static void	update_position(t_player *player, float new_x, float new_y,
+void	update_position(t_player *player, float new_x, float new_y,
 		char **map)
 {
 	if (check_collision(new_x, new_y, map))

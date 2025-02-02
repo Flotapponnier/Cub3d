@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 16:09:00 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:40:25 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	extract_info(t_map *map_struct, int fd)
 			line = get_next_line(fd);
 			continue ;
 		}
-		if (process_map_line(map_struct, line))
+		if (process_map_metadata(map_struct, line))
 		{
 			gc_free_ptr(line);
 			return (error("Invalid character in map header"));

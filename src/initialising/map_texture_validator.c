@@ -6,28 +6,11 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:50:45 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 10:52:28 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:46:27 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-static bool	validate_map_textures_colors(t_map *map_struct)
-{
-	if (!map_struct->path_north || !map_struct->path_south
-		|| !map_struct->path_west || !map_struct->path_east
-		|| !map_struct->color_floor || !map_struct->color_cell)
-		return (false);
-	if (!validate_texture_path(map_struct->path_north)
-		|| !validate_texture_path(map_struct->path_south)
-		|| !validate_texture_path(map_struct->path_west)
-		|| !validate_texture_path(map_struct->path_east))
-		return (false);
-	if (!is_valid_rgb(map_struct->color_floor)
-		|| !is_valid_rgb(map_struct->color_cell))
-		return (false);
-	return (true);
-}
 
 static bool	validate_texture_path(const char *path)
 {
@@ -43,6 +26,26 @@ static bool	validate_texture_path(const char *path)
 	close(fd);
 	len = ft_strlen(path);
 	return (len > 4 && ft_strncmp(path + len - 4, ".png", 4) == 0);
+}
+
+static bool	is_valid_rgb_values(int r, int g, int b)
+{
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (false);
+	return (true);
+}
+
+static void	free_rgb_array(char **rgb)
+{
+	int	i;
+
+	i = 0;
+	while (rgb[i])
+	{
+		gc_free_ptr(rgb[i]);
+		i++;
+	}
+	gc_free_ptr(rgb);
 }
 
 static bool	is_valid_rgb(const char *color_str)
@@ -67,22 +70,19 @@ static bool	is_valid_rgb(const char *color_str)
 	return (valid);
 }
 
-static bool	is_valid_rgb_values(int r, int g, int b)
+bool	validate_map_textures_colors(t_map *map_struct)
 {
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	if (!map_struct->path_north || !map_struct->path_south
+		|| !map_struct->path_west || !map_struct->path_east
+		|| !map_struct->color_floor || !map_struct->color_cell)
+		return (false);
+	if (!validate_texture_path(map_struct->path_north)
+		|| !validate_texture_path(map_struct->path_south)
+		|| !validate_texture_path(map_struct->path_west)
+		|| !validate_texture_path(map_struct->path_east))
+		return (false);
+	if (!is_valid_rgb(map_struct->color_floor)
+		|| !is_valid_rgb(map_struct->color_cell))
 		return (false);
 	return (true);
-}
-
-static void	free_rgb_array(char **rgb)
-{
-	int	i;
-
-	i = 0;
-	while (rgb[i])
-	{
-		gc_free_ptr(rgb[i]);
-		i++;
-	}
-	gc_free_ptr(rgb);
 }

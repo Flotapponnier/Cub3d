@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:18 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 16:08:52 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 17:36:24 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	validate_map_enclosed(t_game *game)
 	return (0);
 }
 
-static int	process_map_data(t_game *game, t_map_node *map_list)
+int	process_map_data(t_game *game, t_map_node *map_list)
 {
 	if (check_map(map_list, &game->player, game) == 1)
 		return (1);
