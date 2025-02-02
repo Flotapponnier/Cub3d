@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:32 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 16:08:35 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 19:24:20 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	fill_map_lines(char **map, t_map_node *map_list)
 	i = 0;
 	while (temp)
 	{
-		map[i] = ft_strdup(temp->line);
+		map[i] = gc_add(ft_strdup(temp->line));
 		if (!map[i])
 			return (0);
 		clean_newline(map[i]);

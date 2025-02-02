@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:52:28 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/01 19:50:31 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 19:28:35 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	load_texture(t_game *game, t_texture *tex, char *path)
 {
 	(void)game;
-	tex->texture = mlx_load_png(path);
+	tex->texture = gc_add(mlx_load_png(path));
 	if (!tex->texture)
 		return (error("Failed to load texture"));
 	tex->width = tex->texture->width;

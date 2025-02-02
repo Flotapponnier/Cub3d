@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 17:40:25 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/02 19:23:48 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	extract_info(t_map *map_struct, int fd)
 {
 	char	*line;
 
-	line = get_next_line(fd);
+	line = gc_add(get_next_line(fd));
 	while (line != NULL)
 	{
 		if (handle_empty_line(line))
 		{
-			line = get_next_line(fd);
+			line = gc_add(get_next_line(fd));
 			continue ;
 		}
 		if (process_map_metadata(map_struct, line))
@@ -49,7 +49,7 @@ int	extract_info(t_map *map_struct, int fd)
 		gc_free_ptr(line);
 		if (is_map_info_complete(map_struct))
 			return (0);
-		line = get_next_line(fd);
+		line = gc_add(get_next_line(fd));
 	}
 	return (error("Missing map textures or colors"));
 }
