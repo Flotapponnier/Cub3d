@@ -6,11 +6,13 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:32 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/03 18:03:46 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:24:13 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+
 
 static char	**allocate_map(int line_count)
 {

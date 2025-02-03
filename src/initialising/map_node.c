@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:39 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/03 18:10:45 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:13:14 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_map_node	*load_map(int fd)
 	{
 		if (!add_map_node(&map_list, line))
 		{
+			free_map_list(map_list);
 			free(line);
 			return (NULL);
 		}

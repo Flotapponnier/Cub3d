@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 17:54:42 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 19:50:54 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,9 @@ bool					flood_fill(char **map, int width, int height,
 
 // map init
 int						init_map(t_game *game, char *path_user_input);
+void 					free_map_list(t_map_node *map_list);
 char					**get_map(t_map_node *map_list);
+char 					**store_map(char **new_map);
 
 // keyhook
 void					key_hook(struct mlx_key_data keydata, void *param);

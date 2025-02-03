@@ -6,11 +6,28 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:15 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 10:54:50 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 20:28:57 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void free_mapi(char **map)
+{
+    if (!map) // Check if the map pointer is NULL
+        return;
+
+    // Free each string in the array
+    for (int i = 0; map[i]; i++)
+    {
+        free(map[i]); // Free the individual string
+        map[i] = NULL; // Optional: Set the pointer to NULL to avoid dangling pointers
+    }
+
+    // Free the array of pointers itself
+    free(map);
+    map = NULL; // Optional: Set the pointer to NULL to avoid dangling pointers
+}
 
 static bool	process_pre_map_line(char *line, bool *map_started)
 {
@@ -79,7 +96,7 @@ static int	validate_and_store_map(char **map, t_player *player, t_game *game)
 		gc_free_ptr(map);
 		return (1);
 	}
-	game->map = map;
+	free_mapi(map);
 	return (0);
 }
 

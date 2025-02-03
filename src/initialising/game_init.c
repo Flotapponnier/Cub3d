@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:28 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 19:35:00 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:28:49 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	init_game(t_game *game, char *path_user_input)
 		destroy_cub3d(game->mlx, 1);
 	if (load_all_textures(game))
 	{
-		free_textures(game);
 		destroy_cub3d(game->mlx, 1);
+		free_textures(game);
 	}
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 		destroy_cub3d(game->mlx, 1);

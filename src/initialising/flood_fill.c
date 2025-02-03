@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:23 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 10:01:04 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 18:41:36 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static bool	**create_visited(int height, int width)
 	int		j;
 	bool	**visited;
 
-	visited = gc_malloc(height * sizeof(bool *));
+	visited = malloc(height * sizeof(bool *));
 	i = 0;
 	while (i < height)
 	{
-		visited[i] = gc_malloc(width * sizeof(bool));
+		visited[i] = malloc(width * sizeof(bool));
 		j = 0;
 		while (j < width)
 		{
@@ -41,10 +41,10 @@ static void	free_visited(bool **visited, int height)
 	i = 0;
 	while (i < height)
 	{
-		gc_free_ptr(visited[i]);
+		free(visited[i]);
 		i++;
 	}
-	gc_free_ptr(visited);
+	free(visited);
 }
 
 static bool	is_on_edge(int x, int y, int width, int height)
