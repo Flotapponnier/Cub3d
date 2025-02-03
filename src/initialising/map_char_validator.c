@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:52:56 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 17:41:19 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 21:40:31 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,16 @@ int	process_map_line(char *line, int y, t_map_validator *ctx)
 		x++;
 	}
 	return (0);
+}
+
+bool	process_pre_map_line(char *line, bool *map_started)
+{
+	if (!*map_started && ft_strlen(line) == 0)
+		return (true);
+	if (!*map_started && is_map_line(line))
+	{
+		*map_started = true;
+		return (true);
+	}
+	return (false);
 }

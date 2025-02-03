@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/03 18:11:41 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:44:22 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,23 +86,6 @@ int	extract_info(t_map *map_struct, int fd)
 		printf("Map Data           : Not set\n");
 	printf("==========================\n");
 } */
-
-/*
-	For debugging:
-	Add `print_map_struct(&game->map_struct);` before `map_list = load_map(fd);`
-*/
-void free_map_list(t_map_node *map_list)
-{
-	t_map_node *temp;
-
-	while (map_list)
-	{
-		temp = map_list->next;
-		free(map_list->line);
-		free(map_list);
-		map_list = temp;
-	}
-}
 
 static int	init_map_data(t_game *game, int fd)
 {

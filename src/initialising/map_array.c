@@ -6,13 +6,11 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:32 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/03 20:24:13 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:47:06 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-
 
 static char	**allocate_map(int line_count)
 {
@@ -58,3 +56,19 @@ char	**get_map(t_map_node *map_list)
 	return (map);
 }
 
+/*
+	For debugging:
+	Add `print_map_struct(&game->map_struct);` before `map_list = load_map(fd);`
+*/
+void	free_map_list(t_map_node *map_list)
+{
+	t_map_node	*temp;
+
+	while (map_list)
+	{
+		temp = map_list->next;
+		free(map_list->line);
+		free(map_list);
+		map_list = temp;
+	}
+}

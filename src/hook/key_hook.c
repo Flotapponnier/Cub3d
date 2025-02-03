@@ -6,25 +6,27 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:38 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/03 20:16:21 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:48:12 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-void free_map(char **map)
-{
-    int i;
 
-    if (!map)
-        return;
-    i = 0;
-    while (map[i])
-    {
-        free(map[i]);
-        i++;
-    }
-    free(map);
+void	free_map(char **map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }
+
 static void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_W)

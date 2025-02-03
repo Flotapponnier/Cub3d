@@ -6,39 +6,27 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:15 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/03 20:28:57 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:40:14 by dilin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void free_mapi(char **map)
+void	free_mapi(char **map)
 {
-    if (!map) // Check if the map pointer is NULL
-        return;
+	int	i;
 
-    // Free each string in the array
-    for (int i = 0; map[i]; i++)
-    {
-        free(map[i]); // Free the individual string
-        map[i] = NULL; // Optional: Set the pointer to NULL to avoid dangling pointers
-    }
-
-    // Free the array of pointers itself
-    free(map);
-    map = NULL; // Optional: Set the pointer to NULL to avoid dangling pointers
-}
-
-static bool	process_pre_map_line(char *line, bool *map_started)
-{
-	if (!*map_started && ft_strlen(line) == 0)
-		return (true);
-	if (!*map_started && is_map_line(line))
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
 	{
-		*map_started = true;
-		return (true);
+		free(map[i]);
+		map[i] = NULL;
+		i++;
 	}
-	return (false);
+	free(map);
+	map = NULL;
 }
 
 static int	validate_map_content(char **map, t_player *player, t_game *game)
