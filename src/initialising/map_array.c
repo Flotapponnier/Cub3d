@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:32 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 19:24:20 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:03:46 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	**allocate_map(int line_count)
 {
 	char	**map;
 
-	map = gc_malloc(sizeof(char *) * (line_count + 1));
+	map = malloc(sizeof(char *) * (line_count + 1));
 	if (!map)
 		return (NULL);
 	return (map);
@@ -31,7 +31,7 @@ static int	fill_map_lines(char **map, t_map_node *map_list)
 	i = 0;
 	while (temp)
 	{
-		map[i] = gc_add(ft_strdup(temp->line));
+		map[i] = ft_strdup(temp->line);
 		if (!map[i])
 			return (0);
 		clean_newline(map[i]);
@@ -55,3 +55,4 @@ char	**get_map(t_map_node *map_list)
 		return (NULL);
 	return (map);
 }
+

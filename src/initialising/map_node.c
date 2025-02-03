@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 16:06:39 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/02 17:47:17 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 18:10:45 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_map_node	*add_map_node(t_map_node **head, char *line)
 	t_map_node	*new_node;
 	t_map_node	*temp;
 
-	new_node = gc_malloc(sizeof(t_map_node));
+	new_node = malloc(sizeof(t_map_node));
 	if (!new_node)
 		return (NULL);
 	new_node->line = line;
@@ -45,7 +45,7 @@ t_map_node	*load_map(int fd)
 	{
 		if (!add_map_node(&map_list, line))
 		{
-			gc_free_ptr(line);
+			free(line);
 			return (NULL);
 		}
 		line = get_next_line(fd);

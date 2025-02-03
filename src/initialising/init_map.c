@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:33 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 19:23:48 by ftapponn         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:11:41 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,19 @@ int	extract_info(t_map *map_struct, int fd)
 	For debugging:
 	Add `print_map_struct(&game->map_struct);` before `map_list = load_map(fd);`
 */
+void free_map_list(t_map_node *map_list)
+{
+	t_map_node *temp;
+
+	while (map_list)
+	{
+		temp = map_list->next;
+		free(map_list->line);
+		free(map_list);
+		map_list = temp;
+	}
+}
+
 static int	init_map_data(t_game *game, int fd)
 {
 	t_map_node	*map_list;
@@ -102,6 +115,7 @@ static int	init_map_data(t_game *game, int fd)
 		return (error("Failed to load map"));
 	if (process_map_data(game, map_list))
 		return (1);
+	free_map_list(map_list);
 	return (0);
 }
 

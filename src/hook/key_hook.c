@@ -6,12 +6,25 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:38 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/01 20:40:12 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/03 17:55:29 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+void free_map(char **map)
+{
+    int i;
 
+    if (!map)
+        return;
+    i = 0;
+    while (map[i])
+    {
+        free(map[i]);
+        i++;
+    }
+    free(map);
+}
 static void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_W)
@@ -27,7 +40,10 @@ static void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 	if (keydata.key == MLX_KEY_RIGHT)
 		game->player.right_rotate = true;
 	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		free_map(game->map);
 		destroy_cub3d(game->mlx, 0);
+	}
 	if (keydata.key == MLX_KEY_TAB)
 		game->debug_view = !game->debug_view;
 }
