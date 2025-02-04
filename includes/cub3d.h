@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:42:34 by dilin             #+#    #+#             */
-/*   Updated: 2025/02/03 21:48:59 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/04 08:43:33 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define CUB3D_H
 
 # include "MLX42.h"
+# include "errno.h"
 # include "libft.h"
 # include "gcollector.h"
-# include "errno.h"
+# include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
-# include <math.h>
 
 # define RED "\033[31m"
 # define RESET "\033[0m"
@@ -287,10 +287,13 @@ bool					check_surrounded_by_walls(char **map, int x, int y,
 void					clean_newline(char *str);
 int						count_map_lines(t_map_node *map_list);
 double					calculate_wall_distance(t_ray *ray, t_player *player);
-void					calculate_draw_params(double perp_wall_dist,
-							int *draw_start, int *draw_end, int *line_height);
-void					calculate_wall_texture(t_game *game,
-							double perp_wall_dist, double *wall_x,
+void	calculate_draw_params(double perp_wall_dist,
+							int *draw_start,
+							int *draw_end,
+							int *line_height);
+void	calculate_wall_texture(t_game *game,
+							double perp_wall_dist,
+							double *wall_x,
 							int *tex_num);
 void					handle_forward(t_player *player, float cos_angle,
 							float sin_angle, char **map);
@@ -301,5 +304,5 @@ void					handle_strafe_direction(t_player *player, t_angle angle,
 void					update_position(t_player *player, float new_x,
 							float new_y, char **map);
 bool					process_pre_map_line(char *line, bool *map_started);
-
+void	free_map(char **map);
 #endif
