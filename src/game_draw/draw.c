@@ -6,7 +6,7 @@
 /*   By: dilin <dilin@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:33:47 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/02 15:09:34 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:14:21 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,6 @@ static void	draw_ray(t_game *game, int x)
 	params.end_x = ray_end_x;
 	params.end_y = ray_end_y;
 	params.color = RAYCAST_COLOR;
-	if (game->debug_view)
-		draw_line(game->player.x, game->player.y, &params, game);
 }
 
 static void	draw_debug_view(t_game *game)
@@ -192,8 +190,6 @@ static void	draw_debug_view(t_game *game)
 	params.y = game->player.y;
 	params.size = SIZE_PLAYER;
 	params.color = PLAYER_COLOR;
-	draw_square(params, game);
-	draw_map(game);
 }
 
 void	draw_loop(void *param)

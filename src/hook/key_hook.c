@@ -6,7 +6,7 @@
 /*   By: ftapponn <ftapponn@student.42heilbronn.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:32:38 by ftapponn          #+#    #+#             */
-/*   Updated: 2025/02/03 21:48:12 by dilin            ###   ########.fr       */
+/*   Updated: 2025/02/04 19:13:54 by ftapponn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static void	handle_key_press(struct mlx_key_data keydata, t_game *game)
 		free_map(game->map);
 		destroy_cub3d(game->mlx, 0);
 	}
-	if (keydata.key == MLX_KEY_TAB)
-		game->debug_view = !game->debug_view;
 }
 
 static void	handle_key_release(struct mlx_key_data keydata, t_game *game)
