@@ -28,6 +28,9 @@ Additionally, Bresenham’s Line Algorithm is employed to optimize the drawing o
 ## Texture Mapping
 In Cub3D, textures are applied to walls to create a more realistic 3D effect. When a ray hits a wall, the code calculates which part of the texture should be displayed based on the intersection point’s position and the wall’s orientation. This provides the illusion of detailed 3D walls, enhancing the visual experience of the game.
 
+## Result
+![Cub3D Image](image/cub3d.png)
+
 ## Conclusion
 Cub3D is an impressive introduction to 3D game rendering techniques using raycasting. By implementing the DDA algorithm, Bresenham's Line Algorithm, texture mapping, and working with MLX, the project gives an in-depth look at the core concepts used in early 3D games. It’s a challenging yet rewarding project that enhances understanding of how 3D worlds can be simulated on 2D screens.
 
